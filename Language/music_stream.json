@@ -1,0 +1,187 @@
+{
+  "hun" : {"Bandcamp": {
+    "Price" : "Az előadók és a kiadók határozzák meg az árakat",
+    "Audio_quality" : "Audiofil formátumokat kínál",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Tidal": {
+    "Price" : "Ingyenes, HiFi havi 9,99 dollárért, HiFi Plus havi 19,99 dollárért",
+    "Audio_quality" : "Nagyhűségű streamelést kínál",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Apple_Music": {
+    "Price" : "Egyéni havi 9,99 USD, Családi 14,99 USD havonta",
+    "Audio_quality" : "Nagyhűségű streaming és audiofil formátumokat kínál",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Amazon_Music_Unlimited": {
+    "Price" : "7,99 $ havonta",
+    "Audio_quality" : "Nagyhűségű streaminget kínál",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Spotify": {
+    "Price" : "Ingyenes; Prémium számla 9,99 USD havonta",
+    "Audio_quality" : "Nincs audiofil lehetőség",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "YouTube_Music": {
+    "Price" : "Ingyenes; prémium havi 9,99 dollárért",
+    "Audio_quality" : "Nincs audiofil lehetőség",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Deezer": {
+    "Price" : "Ingyenes; Premium havi 9,99 dollárért; HiFi havi 14,99 dollárért",
+    "Audio_quality" : "Audiofil formátumokat kínál",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Qobuz": {
+    "Price" : "12,99 USD havonta (éves fizetéssel megtakaríthat)",
+    "Audio_quality" : "Nagyhűségű streaming és audiofil formátumokat kínál",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "Pandora": {
+    "Price" : "Ingyenes; plusz havi 4,99 dollárért; prémium 9,99 dollár havonta",
+    "Audio_quality" : "Nincs audiofil lehetőség",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Igen"
+  },
+  "SiriusXM_Internet_Radio": {
+    "Price" : "Platina havi 10,99 dollárért; Zene és szórakoztatás 17,99 dollárért",
+    "Audio_quality" : "Nincs audiofil lehetőség",
+    "Mobile_support" : "Elérhető az App Store-ban vagy a Google Playen",
+    "Playlisting_features" : "Nem, de testreszabható Pandora állomásokat tartalmaz"
+  }
+  },
+
+  "eng" : {"Bandcamp": {
+    "Price" : "Artists and labels set prices",
+    "Audio_quality" : "Offers audiophile formats",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "Tidal": {
+    "Price" : "Free; HiFi for $9.99 per month; HiFi Plus for $19.99 per month",
+    "Audio_quality" : "Offers high-fidelity streaming",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "Apple Music": {
+    "Price" : "Individual for $9.99 per month; Family for $14.99 per month",
+    "Audio_quality" : "Offers high-fidelity streaming and audiophile formats",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features:" : "Yes"
+  },
+  "Amazon Music Unlimited": {
+    "Price" : "$7.99 per month",
+    "Audio_quality" : "Offers high-fidelity streaming",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "Spotify": {
+    "Price" : "Free; Premium account $9.99 per month",
+    "Audio_quality" : "No audiophile options",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "YouTube Music": {
+    "Price" : "Free; Premium for $9.99 per month",
+    "Audio_quality" : "No audiophile options",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "Deezer": {
+    "Price" : "Free; Premium for $9.99 per month; HiFi for $14.99 per month",
+    "Audio_quality" : "Offers audiophile formats",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "Qobuz": {
+    "Price" : "$12.99 per month (you can save with annual payments)",
+    "Audio_quality" : "Offers high-fidelity streaming and audiophile formats",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "Pandora": {
+    "Price" : "Free; Plus for $4.99 per month; Premium for $9.99 per month",
+    "Audio_quality" : "No audiophile options",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "Yes"
+  },
+  "SiriusXM Internet Radio": {
+    "Price" : "Platinum for $10.99 per month; Music & Entertainment for $17.99",
+    "Audio_quality" : "No audiophile options",
+    "Mobile_support" : "Available in the App Store or Google Play",
+    "Playlisting_features" : "No, but includes customizable Pandora stations"
+  }
+  },
+
+  "de" : {"Bandcamp": {
+    "Price" : "Künstler und Labels legen Preise fest",
+    "Audio_quality" : "Bietet audiophile Formate",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "Tidal": {
+    "Price" : "Kostenlos; HiFi für 9,99 $ pro Monat; HiFi Plus für 19,99 $ pro Monat",
+    "Audio_quality" : "Bietet High-Fidelity-Streaming",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "Apple Music": {
+    "Price" : "Einzelperson für 9,99 $ pro Monat; Familie für 14,99 $ pro Monat",
+    "Audio_quality" : "Bietet High-Fidelity-Streaming und audiophile Formate",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features:" : "Yes"
+  },
+  "Amazon Music Unlimited": {
+    "Price" : "7,99 $ pro Monat",
+    "Audio_quality" : "Bietet High-Fidelity-Streaming",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "Spotify": {
+    "Price" : "Kostenlos; Premium-Konto 9,99 $ pro Monat",
+    "Audio_quality" : "Keine audiophilen Optionen",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "YouTube Music": {
+    "Price" : "Kostenlos; Premium für 9,99 $ pro Monat",
+    "Audio_quality" : "Keine audiophilen Optionen",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "Deezer": {
+    "Price" : "Kostenlos; Premium für 9,99 $ pro Monat; HiFi für 14,99 $ pro Monat",
+    "Audio_quality" : "Bietet audiophile Formate",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "Qobuz": {
+    "Price" : "12,99 $ pro Monat (Sie können mit jährlichen Zahlungen sparen)",
+    "Audio_quality" : "Bietet High-Fidelity-Streaming und audiophile Formate",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "Pandora": {
+    "Price" : "Kostenlos; Plus für 4,99 $ pro Monat; Premium für 9,99 $ pro Monat",
+    "Audio_quality" : "Keine audiophilen Optionen",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Ja"
+  },
+  "SiriusXM Internet Radio": {
+    "Price" : "Platinum für 10,99 $ pro Monat; Musik & Unterhaltung für 17,99 $",
+    "Audio_quality" : "Keine audiophilen Optionen",
+    "Mobile_support" : "Erhältlich im App Store oder bei Google Play",
+    "Playlisting_features" : "Nein, enthält aber anpassbare Pandora-Stationen"
+  }
+  }
+}

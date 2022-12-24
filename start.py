@@ -35,14 +35,15 @@ lang = (data_jsonq['config_language'][0])
 path = ROOT_DIR + '/Language/' + lang + '.json'
 isFile = os.path.isfile(path)
 
-if isFile == True:
+if isFile:
     language = ROOT_DIR + '/Language/' + lang + '.json'
     response = open(language, encoding='utf-8')
-    data_lang_json = json.loads(response.read())
-    __verzion__ = data_jsonq['verzion']
 
 else:
     messagebox.showwarning("Warning", "'" + lang + "'" + " Language File Not Found!!!")
+
+
+data_lang_json = json.loads(response.read())
 
 # script
 app_configure = ROOT_DIR + " "
@@ -61,7 +62,9 @@ def clock():
     date, time1 = date_time.split()
     time2, time3 = time1.split('/')
     hour, minutes, seconds = time2.split(':')
+
     if int(hour) > 11 and int(hour) < 24:
+
         time = str(int(hour) - 12) + ':' + minutes + ':' + seconds + ' ' + time3
     else:
         time = time2 + ' ' + time3
@@ -91,8 +94,6 @@ def verzion():
     __verch__ = (data_jsonq['verzion'])
 
     if __verch__ == datas['name']:
-
-
         # n, ne, e, se, s, sw, w, nw,
         # -------------------------------
         # |  -  |  -  |   n    |  -  |  -  |
@@ -125,8 +126,6 @@ def verzion():
 
     if __verch__ > datas['name']:
         print('Error')
-
-
 
 def weather_google():
     USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
@@ -668,15 +667,15 @@ class apps:
         lb = Listbox(ws, selectmode="multiple")
         lb.pack(padx=10, pady=10, expand=YES, fill="both")
 
-        torrent = ["Shotcut",
+        videoeditor = ["Shotcut",
                    "OpenShot Video Editor",
                    "DaVinci Resolve 18",
                    "EVideo Editor",
                    "Digital Video Editor",
                    "HitFilm"]
 
-        for item in range(len(torrent)):
-            lb.insert(END, torrent[item])
+        for item in range(len(videoeditor)):
+            lb.insert(END, videoeditor[item])
             lb.itemconfig(item, bg="#bdc1d6")
 
         Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
@@ -729,19 +728,488 @@ class games:
         lb = Listbox(ws, selectmode="multiple")
         lb.pack(padx=10, pady=10, expand=YES, fill="both")
 
-        torrent = ["Electronics Arts",
+        games = ["Electronics Arts",
                    "Steam",
                    "Epic Games",
                    "Battle.net",
                    "Microsoft Game Pass",
                    "Ubisoft"]
 
-        for item in range(len(torrent)):
-            lb.insert(END, torrent[item])
+        for item in range(len(games)):
+            lb.insert(END, games[item])
             lb.itemconfig(item, bg="#bdc1d6")
 
         Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
 
+class music:
+    @staticmethod
+    def music_stream():
+        ws = Tk()
+        ws.title('Music streaming apps')
+        ws.geometry('400x300')
+
+        var = StringVar()
+
+        def showSelected():
+            countries = []
+            cname = lb.curselection()
+            for i in cname:
+                op = lb.get(i)
+                countries.append(op)
+            for val in countries:
+                # print(val)
+
+                if val == "Bandcamp":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget, text=data_lang_json[lang][0]['Music']['Bandcamp'])
+                    label_widget0 = Label(labelframe_widget, text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                                                  path_jsonq[data_jsonq['config_language'][0]][
+                                                                      'Bandcamp']['Price'])
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Bandcamp'][
+                                                   'Audio_quality'])
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Bandcamp'][
+                                                   'Mobile_support'])
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Bandcamp'][
+                                                   'Playlisting_features'])
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://bandcamp.com/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Tidal":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                        text=data_lang_json[lang][0]['Music']['Tidal'])
+
+                    label_widget0 = Label(labelframe_widget,
+                        text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                        path_jsonq[data_jsonq['config_language'][0]]['Tidal']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                        text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                        path_jsonq[data_jsonq['config_language'][0]]['Tidal']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                        text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                        path_jsonq[data_jsonq['config_language'][0]]['Tidal']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                        text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                        path_jsonq[data_jsonq['config_language'][0]]['Tidal']['Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://tidal.com/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Apple Music":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['Apple_Music'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Apple_Music']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Apple_Music']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Apple_Music']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Apple_Music'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://www.apple.com/apple-music/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Amazon Music Unlimited":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['Amazon_Music_Unlimited'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Amazon_Music_Unlimited']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Amazon_Music_Unlimited']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Amazon_Music_Unlimited']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Amazon_Music_Unlimited'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://www.amazon.com/music/prime/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Spotify":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['Spotify'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Spotify']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Spotify']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Spotify']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Spotify'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://open.spotify.com/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "YouTube Music":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['YouTube_Music'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['YouTube_Music']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['YouTube_Music']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['YouTube_Music']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['YouTube_Music'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://music.youtube.com/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Deezer":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['Deezer'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Deezer']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Deezer']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Deezer']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Deezer'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://www.deezer.com/us/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Qobuz":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['Qobuz'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Qobuz']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Qobuz']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Qobuz']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Qobuz'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://www.qobuz.com/us-en/discover")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "Pandora":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['Pandora'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Pandora']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Pandora']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Pandora']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['Pandora'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://www.pandora.com/")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+                if val == "SiriusXM Internet Radio":
+                    parent_widget = Tk()
+                    parent_widget.minsize(400, 150)
+                    parent_widget.geometry('400x150')
+
+                    ROOT_DIR = os.path.abspath(os.curdir)
+                    path = ROOT_DIR + '/Language/music_stream.json'
+                    response = open(path, encoding='utf-8')
+                    path_jsonq = json.loads(response.read())
+
+                    labelframe_widget = LabelFrame(parent_widget,
+                                                   text=data_lang_json[lang][0]['Music']['SiriusXM_Internet_Radio'])
+
+                    label_widget0 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Price'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['SiriusXM_Internet_Radio']['Price'])
+
+                    label_widget1 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Audio_quality'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['SiriusXM_Internet_Radio']['Audio_quality'])
+
+                    label_widget2 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Mobile_support'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['SiriusXM_Internet_Radio']['Mobile_support'])
+
+                    label_widget3 = Label(labelframe_widget,
+                                          text=data_lang_json[lang][0]['Music']['Playlisting_features'] + ": " +
+                                               path_jsonq[data_jsonq['config_language'][0]]['SiriusXM_Internet_Radio'][
+                                                   'Playlisting_features'])
+
+                    labelframe_widget.pack(padx=10, pady=10)
+
+                    def weblink():
+                        import webbrowser
+                        webbrowser.open("https://www.siriusxm.com/streaming")
+
+                    Button(parent_widget, text=data_lang_json[lang][0]['Music']['Weblink'], command=weblink).pack()
+
+                    label_widget0.pack()
+                    label_widget1.pack()
+                    label_widget2.pack()
+                    label_widget3.pack()
+
+
+        show = Label(ws, text=data_lang_json[lang][0]['Weblink']['Select_Your_Apps'], font=("Times", 14), padx=10, pady=10)
+        show.pack()
+
+        lb = Listbox(ws, selectmode="multiple")
+        lb.pack(padx=10, pady=10, expand=YES, fill="both")
+
+        musicstream = ["Bandcamp",
+                   "Tidal",
+                   "Apple Music",
+                   "Amazon Music Unlimited",
+                   "Spotify",
+                   "YouTube Music",
+                   "Deezer",
+                   "Qobuz",
+                   "Pandora",
+                   "SiriusXM Internet Radio"
+                   ]
+
+        for item in range(len(musicstream)):
+            lb.insert(END, musicstream[item])
+            lb.itemconfig(item, bg="#bdc1d6")
+
+
+
+        Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
 
 verzion()
 clock()
@@ -761,6 +1229,9 @@ my_dropdown_menu_games = tk.Menu(my_menubar, tearoff=0)
 my_dropdown_menu_games.add_command(label=data_lang_json[lang][0]['Games']['Game_Launcher'], command=games.game_launcher)
 my_menubar.add_cascade(label=data_lang_json[lang][0]['Games']['Games'], menu=my_dropdown_menu_games)
 
+my_dropdown_menu_music = tk.Menu(my_menubar, tearoff=0)
+my_dropdown_menu_music.add_command(label=data_lang_json[lang][0]['Music']['Music_list'], command=music.music_stream)
+my_menubar.add_cascade(label=data_lang_json[lang][0]['Music']['Music'], menu=my_dropdown_menu_music)
 
 my_dropdown_menu_help = tk.Menu(my_menubar, tearoff=0)
 my_dropdown_menu_help.add_command(label=data_lang_json[lang][0]['Menu']['Configure'], command=configure)

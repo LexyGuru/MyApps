@@ -50,8 +50,28 @@
       "Games": {
         "Games": "Spiele App",
         "Game_Launcher": "Game Launcher"
-      }
+      },
 
+      "Music" : {
+        "Music": "Musik",
+        "Music_list": "Musikliste",
+        "Weblink" : "Webseite",
+        "Price" : "Preis",
+        "Audio_quality" : "Tonqualität",
+        "Mobile_support" : "Mobile Unterstützung",
+        "Playlisting_features" : "Wiedergabeliste",
+
+        "Bandcamp" : "Bandcamp",
+        "Tidal" : "Tidal",
+        "Apple_Music" : "Apple Music",
+        "Amazon_Music_Unlimited" : "Amazon Music Unlimited",
+        "Spotify" : "Spotify",
+        "YouTube_Music" : "YouTube Music",
+        "Deezer" : "Deezer",
+        "Qobuz" : "Qobuz",
+        "Pandora" : "Pandora",
+        "SiriusXM_Internet_Radio" : "SiriusXM Internet Radio"
+      }
     }
   ]
 }

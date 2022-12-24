@@ -50,8 +50,28 @@
       "Games": {
         "Games": "Game Appok",
         "Game_Launcher": "Game Launcher"
-      }
+      },
 
+      "Music" : {
+        "Music": "Music",
+        "Music_list": "Music list",
+        "Weblink" : "Weblink",
+        "Price" : "Price",
+        "Audio_quality" : "Audio quality",
+        "Mobile_support" : "Mobile support",
+        "Playlisting_features" : "Playlisting features",
+
+        "Bandcamp" : "Bandcamp",
+        "Tidal" : "Tidal",
+        "Apple_Music" : "Apple Music",
+        "Amazon_Music_Unlimited" : "Amazon Music Unlimited",
+        "Spotify" : "Spotify",
+        "YouTube_Music" : "YouTube Music",
+        "Deezer" : "Deezer",
+        "Qobuz" : "Qobuz",
+        "Pandora" : "Pandora",
+        "SiriusXM_Internet_Radio" : "SiriusXM Internet Radio"
+      }
     }
   ]
 }

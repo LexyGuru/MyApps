@@ -51,6 +51,27 @@
       "Games": {
         "Games": "Játék alkalmazások",
         "Game_Launcher": "Játékindító"
+      },
+
+      "Music" : {
+        "Music": "Zene",
+        "Music_list": "Zene list",
+        "Weblink" : "Weblap",
+        "Price" : "Ár",
+        "Audio_quality" : "Hangminőség",
+        "Mobile_support" : "Mobil támogatás",
+        "Playlisting_features" : "Lejátszási lista",
+
+        "Bandcamp" : "Bandcamp",
+        "Tidal" : "Tidal",
+        "Apple_Music" : "Apple Music",
+        "Amazon_Music_Unlimited" : "Amazon Music Unlimited",
+        "Spotify" : "Spotify",
+        "YouTube_Music" : "YouTube Music",
+        "Deezer" : "Deezer",
+        "Qobuz" : "Qobuz",
+        "Pandora" : "Pandora",
+        "SiriusXM_Internet_Radio" : "SiriusXM Internet Radio"
       }
 
     }
