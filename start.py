@@ -48,7 +48,19 @@ def configure():
     sp.Popen([programName, fileName])
 
 def verzion():
-    pass
+    import json, requests, datetime
+    url = requests.get("https://api.github.com/LexyGuru/MyApps/releases")
+    text = url.text
+    data = json.loads(text)
+
+    datas = data[0]
+    print(datas['name'])  # verzio
+
+    zipball_url = datas['zipball_url']
+    print(zipball_url)
+
+    published_at = datas['published_at']
+    print(published_at)
 
 my_windows = tk.Tk()
 my_windows.title('WindowsGuiPY' + " " + data_jsonq['verzion'])
