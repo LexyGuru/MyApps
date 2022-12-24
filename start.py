@@ -1,6 +1,7 @@
 import json
 import tkinter as tk
 import os
+
 import pytz
 import sys
 # import subprocess
@@ -49,26 +50,33 @@ def configure():
 
 def verzion():
     import json, requests, datetime
-    url = requests.get("https://api.github.com/LexyGuru/MyApps/releases")
-    text = url.text
+
+    user = 'LexyGuru'
+    token = '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'
+    headers = {'Authorization': 'token ' + token}
+
+    login = requests.get('https://api.github.com/repos/LexyGuru/MyApps/releases', headers=headers)
+    # print(login.json())
+
+    text = login.text
     data = json.loads(text)
-
     datas = data[0]
-    print(datas['name'])  # verzio
 
-    zipball_url = datas['zipball_url']
-    print(zipball_url)
+    menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8))
+    menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'))
+    menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold'))
 
-    published_at = datas['published_at']
-    print(published_at)
+    #n, ne, e, se, s, sw, w, nw,
+    menu_label_0.place(relx=0.5, rely=1.0, anchor='s')
+    menu_label_1.place(relx=1, rely=1, anchor='se')
+    menu_label_2.place(relx=0.0, rely=1.0, anchor='sw')
+
 
 my_windows = tk.Tk()
-my_windows.title('WindowsGuiPY' + " " + data_jsonq['verzion'])
+my_windows.title('WindowsGuiPY')
 my_windows.minsize(700, 400)
 my_windows.geometry('800x400')
 my_menubar = tk.Menu(my_windows)
-
-
 
 def weather_google():
     USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
