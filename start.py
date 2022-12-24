@@ -19,6 +19,13 @@ from tkinter import Tk, Button
 from tkinter.scrolledtext import ScrolledText
 from datetime import datetime
 
+my_windows = tk.Tk()
+my_windows.title('WindowsGuiPY')
+my_windows.minsize(700, 400)
+my_windows.geometry('800x400')
+my_menubar = tk.Menu(my_windows)
+
+
 ROOT_DIR = os.path.abspath(os.curdir)
 response = open('config.json', encoding='utf-8')
 data_jsonq = json.loads(response.read())
@@ -41,42 +48,85 @@ else:
 app_configure = ROOT_DIR + " "
 
 
-
 def configure():
     import subprocess as sp
     programName = "notepad.exe"
     fileName = ROOT_DIR + "/config.json"
     sp.Popen([programName, fileName])
 
+
+def clock():
+    dd = (''.join(data_jsonq['timezone'][0]))
+    date_time = datetime.now(pytz.timezone(dd)).strftime("%d-%m-%Y %H:%M:%S/%p")
+    date, time1 = date_time.split()
+    time2, time3 = time1.split('/')
+    hour, minutes, seconds = time2.split(':')
+    if int(hour) > 11 and int(hour) < 24:
+        time = str(int(hour) - 12) + ':' + minutes + ':' + seconds + ' ' + time3
+    else:
+        time = time2 + ' ' + time3
+    time_label.config(text=time)
+    date_label.config(text=date)
+    time_label.after(1000, clock)
+
+
+date_label = tk.Label(my_windows, font=('calibri 30 bold', 10, 'bold'), foreground='black')
+time_label = tk.Label(my_windows, font=('calibri 30 bold', 30, 'bold'), foreground='black')
+date_label.place(relx=0.5, rely=0.54, anchor='center')
+time_label.place(relx=0.5, rely=0.45, anchor='center')
+
 def verzion():
-    import json, requests, datetime
-
-    user = 'LexyGuru'
-    token = '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'
-    headers = {'Authorization': 'token ' + token}
-
-    login = requests.get('https://api.github.com/repos/LexyGuru/MyApps/releases', headers=headers)
-    # print(login.json())
-
-    text = login.text
+    import json, requests
+    url = requests.get("https://api.github.com/repos/LexyGuru/MyApps/releases")
+    text = url.text
     data = json.loads(text)
     datas = data[0]
 
-    menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8))
-    menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'))
-    menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold'))
 
-    #n, ne, e, se, s, sw, w, nw,
-    menu_label_0.place(relx=0.5, rely=1.0, anchor='s')
-    menu_label_1.place(relx=1, rely=1, anchor='se')
-    menu_label_2.place(relx=0.0, rely=1.0, anchor='sw')
+    def verzion_ch():
+        pass
+
+    response = open('config.json', encoding='utf-8')
+    data_jsonq = json.loads(response.read())
+    __verch__ = (data_jsonq['verzion'])
+
+    if __verch__ == datas['name']:
 
 
-my_windows = tk.Tk()
-my_windows.title('WindowsGuiPY')
-my_windows.minsize(700, 400)
-my_windows.geometry('800x400')
-my_menubar = tk.Menu(my_windows)
+        # n, ne, e, se, s, sw, w, nw,
+        # -------------------------------
+        # |  -  |  -  |   n    |  -  |  -  |
+        # |:---:|:---:|:------:|:---:|:---:|
+        # |  -  | nw  |   -    | ne  |  -  |
+        # |  w  |  -  | center |  -  |  e  |
+        # |  -  | sw  |   -    | se  |  -  |
+        # |  -  |  -  |   s    |  -  |  -  |
+
+        menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8))
+        menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'))
+        menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold'))
+
+        menu_label_0.place(relx=0.5, rely=1.0, anchor='s')
+        menu_label_1.place(relx=1, rely=1, anchor='se')
+        menu_label_2.place(relx=0.0, rely=1.0, anchor='sw')
+
+    if __verch__ < datas['name']:
+
+        menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8), foreground='red')
+        menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'), foreground='red')
+        menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold'), foreground='red')
+
+        menu_label_0.place(relx=0.5, rely=1.0, anchor='s')
+        menu_label_1.place(relx=1, rely=1, anchor='se')
+        menu_label_2.place(relx=0.0, rely=1.0, anchor='sw')
+
+        uppdate = tk.Label(my_windows, text="NEW UPDATE", font=('Ethnocentric', 25, 'bold'), foreground='red')
+        uppdate.place(relx=0.5, rely=0.54, anchor='center')
+
+    if __verch__ > datas['name']:
+        print('Error')
+
+
 
 def weather_google():
     USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
@@ -84,8 +134,6 @@ def weather_google():
     LANGUAGE = data_jsonq['language_weather'][0]
     locat = data_jsonq['locations'][0]
 
-    # data_lang_json[lang][0]['Menu']['Version']
-    # data_jsonq['language_weather'][0]
 
     def get_weather_data(url):
         session = requests.Session()
@@ -189,29 +237,6 @@ def weather_google():
             print(data_lang_json[lang][0]['Weather']['Max_temperature'], f"{dayweather['max_temp']}°C")
             print(data_lang_json[lang][0]['Weather']['Min_temperature'], f"{dayweather['min_temp']}°C")
 
-def clock():
-    dd = (''.join(data_jsonq['timezone'][0]))
-    date_time = datetime.now(pytz.timezone(dd)).strftime("%d-%m-%Y %H:%M:%S/%p")
-    date, time1 = date_time.split()
-    time2, time3 = time1.split('/')
-    hour, minutes, seconds = time2.split(':')
-    if int(hour) > 11 and int(hour) < 24:
-        time = str(int(hour) - 12) + ':' + minutes + ':' + seconds + ' ' + time3
-    else:
-        time = time2 + ' ' + time3
-    time_label.config(text=time)
-    date_label.config(text=date)
-    time_label.after(1000, clock)
-
-time_label = Label(my_windows, font = 'calibri 30 bold', foreground = 'black')
-time_label.pack(anchor='center')
-date_label = Label(my_windows, font = 'calibri 30 bold', foreground = 'black')
-date_label.pack(anchor='s')
-# ver = Label(my_windows, text=(__version__ + " " + data_lang_json[lang][0]['Menu']['Version']), font=('Ethnocentric', 15), fg='red')
-'''ver = Label(my_windows, text=verzion(), font=('Ethnocentric', 15))
-ver.pack(anchor='s')'''
-verzion()
-clock()
 
 def systeminfo():
     my_windows = tk.Tk()
@@ -717,6 +742,9 @@ class games:
 
         Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
 
+
+verzion()
+clock()
 
 my_dropdown_menu_utils = tk.Menu(my_menubar, tearoff=0)
 my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['SystemInfo'], command=systeminfo)
