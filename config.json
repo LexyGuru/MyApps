@@ -1,0 +1,7 @@
+{
+  "config_language": ["hun"],
+  "verzion": "1.0.5-beta-2022",
+  "timezone": ["Europe/Budapest"],
+  "language_weather": ["hu-HU,hu;q=0.5"],
+  "locations": ["oberndorf+bei+salzburg"]
+}

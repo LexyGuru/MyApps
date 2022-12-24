@@ -1,0 +1,57 @@
+{
+  "_comment_": [
+    "Language Database"
+  ],
+  "de": [
+    {
+      "Menu": {
+        "Version": "UPDATE",
+        "SystemInfo":"Systeminformationen",
+        "Configure": "Konfigurieren",
+        "Exit": "Exit",
+        "WinUtils": "Windows Dienstprogramme",
+        "Help": "Hilfe",
+
+        "utilities": "Dienstprogramme",
+        "Weather": "Wetter"
+      },
+
+      "Weather": {
+        "Weather_for" : "Wetter für:",
+        "Now": "Jetzt:",
+        "Temperature_now": "Temperatur jetzt:",
+        "Description": "Beschreibung:",
+        "Precipitation": "Niederschlag:",
+        "Humidity": "Feuchtigkeit:",
+        "Wind": "Wind:",
+        "Next_days": "Nächsten Tage:",
+        "Max_temperature": "Maximale Temperatur:",
+        "Min_temperature": "Mindesttemperatur:"
+      },
+
+      "Weblink" :{
+        "Select_Your_Apps" : "Wählen sie ihre apps aus",
+        "Show_Selected" : "Ausgewählte anzeigen"
+      },
+
+      "Apps": {
+        "Apps" : "Web lista",
+        "Apps_Torrent" : "Torrent Software",
+        "Apps_Media_Server" : "Medienserver",
+        "Apps_Video_Editor" : "Apps Video Editor"
+      },
+
+      "Update": {
+        "NoUpdate": "Aktuelle Ausgabe",
+        "NewUpdate": "Aktuelle Ausgabe",
+        "ErrorUpdate": "Aktualisierungsfehler"
+      },
+
+      "Games": {
+        "Games": "Spiele App",
+        "Game_Launcher": "Game Launcher"
+      }
+
+    }
+  ]
+}

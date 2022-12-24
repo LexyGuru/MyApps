@@ -1,0 +1,58 @@
+{
+  "_comment_": [
+    "Language Database"
+  ],
+  "hun": [
+    {
+      "Menu": {
+        "Version": "UPDATE",
+        "Downloads": "Letöltés",
+        "SystemInfo":"Rendszerinfó",
+        "Configure": "Beállítások",
+        "Exit": "Kilépés",
+        "WinUtils": "Windows Segédprogramok",
+        "Help": "Segítég",
+
+        "utilities": "Segédprogramok",
+        "Weather": "Időjárás"
+      },
+
+      "Weather": {
+        "Weather_for" : "Időjárás ehhez:",
+        "Now": "Most:",
+        "Temperature_now": "Hőmérséklet most:",
+        "Description": "Leírás:",
+        "Precipitation": "Csapadék:",
+        "Humidity": "Páratartalom:",
+        "Wind": "Szél:",
+        "Next_days": "Következő napok:",
+        "Max_temperature": "Max hőmérséklet:",
+        "Min_temperature": "Max hőmérséklet:"
+      },
+
+      "Weblink" :{
+        "Select_Your_Apps" : "Válassza ki az ön alkalmazásait",
+        "Show_Selected" : "Kijelöltek megjelenítése"
+      },
+
+      "Apps": {
+        "Apps" : "Web lista",
+        "Apps_Torrent" : "Torrent szoftverek",
+        "Apps_Media_Server" : "Media Szerverk",
+        "Apps_Video_Editor" : "Apps Video Szerkesztö"
+      },
+
+      "Update": {
+        "NoUpdate": "Aktuális kiadás",
+        "NewUpdate": "Új kiadás a GitHub-on",
+        "ErrorUpdate": "Frissítési hiba"
+      },
+
+      "Games": {
+        "Games": "Játék alkalmazások",
+        "Game_Launcher": "Játékindító"
+      }
+
+    }
+  ]
+}
