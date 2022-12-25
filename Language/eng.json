@@ -7,7 +7,9 @@
       "Menu": {
         "Version": "UPDATE",
         "SystemInfo":"System Info",
+        "Downloads": "Downloads",
         "Configure": "Configure",
+        "virus_scann": "Virus scan",
         "Exit": "Exit",
         "WinUtils": "Windows Utils",
         "Help": "Help",

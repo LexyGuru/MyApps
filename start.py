@@ -1,6 +1,6 @@
 #***************************************
 # APPS VERZION
-VERSION = [1, 0, 8, 'beta', 2022]
+VERSION = [1, 1, 0, 'beta', 2022]
 #***************************************
 
 # n, ne, e, se, s, sw, w, nw,
@@ -60,8 +60,64 @@ else:
 
 data_lang_json = json.loads(response.read())
 
-# script
-app_configure = ROOT_DIR + " "
+#***************************************
+# SCRIPT FILE
+Win_Scipt0 = ROOT_DIR + " "
+Win_Scipt1 = ROOT_DIR + " "
+Win_Scipt2 = ROOT_DIR + " "
+Win_Scipt3 = ROOT_DIR + " "
+Win_Scipt4 = ROOT_DIR + " "
+Win_Scipt5 = ROOT_DIR + " "
+Win_Scipt6 = ROOT_DIR + " "
+Win_Scipt7 = ROOT_DIR + " "
+
+#****************************************
+# SCRIPT VIRUS SCAN
+class microsoft_apps:
+    @staticmethod
+    def virus_scann():
+        parent_widget = Tk()
+        parent_widget.title('Microsoft Windows Apps')
+        parent_widget.minsize(400, 150)
+        parent_widget.geometry('400x150')
+
+        path = 'C:\\Users\\%USERNAME%\\AppData\\Local\\Temp\\MpCmdRun.log'
+        isFile = os.path.isfile(path)
+
+        def quick_scean():
+            os.system(
+                'cmd.exe /k "c: && cd C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18* && start MpCmdRun -Scan -ScanType 1 && exit"')
+
+        def full_scean():
+            os.system(
+                'cmd.exe /k "c: && cd C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18* && start MpCmdRun -Scan -ScanType 2 && exit"')
+
+        def open_log():
+            if isFile:
+                os.system(
+                    'cmd.exe /k "c: && cd C:\\Users\\%USERNAME%\\AppData\\Local\\Temp\\ && start MpCmdRun.log && exit"')
+            else:
+                pass
+
+        def reset_log():
+
+            if isFile:
+                os.system(
+                    'cmd.exe /k "c: && rename C:\\Users\\%USERNAME%\\AppData\\Local\\Temp\\MpCmdRun.log MpCmdRun_backup.log && exit"')
+            else:
+                pass
+
+        labelframe_widget = LabelFrame(parent_widget, text="Microsoft Security")
+        label_widget0 = Button(labelframe_widget, text="Quick scan", command=quick_scean)
+        label_widget1 = Button(labelframe_widget, text="Full scan", command=full_scean)
+        label_widget2 = Button(labelframe_widget, text="Open Log", command=open_log)
+        label_widget3 = Button(labelframe_widget, text="Reset Log", command=reset_log)
+
+        labelframe_widget.place(x=10, y=10, anchor='nw')
+        label_widget0.pack()
+        label_widget1.pack()
+        label_widget2.pack()
+        label_widget3.pack()
 
 
 def configure():
@@ -1320,6 +1376,7 @@ verzion()
 clock()
 
 my_dropdown_menu_utils = tk.Menu(my_menubar, tearoff=0)
+my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['virus_scann'], command=microsoft_apps.virus_scann)
 my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['SystemInfo'], command=systeminfo)
 my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['Weather'], command=weather_google)
 my_menubar.add_cascade(label=data_lang_json[lang][0]['Menu']['utilities'], menu=my_dropdown_menu_utils)

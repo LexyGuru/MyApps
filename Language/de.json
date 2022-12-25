@@ -6,8 +6,10 @@
     {
       "Menu": {
         "Version": "UPDATE",
+        "Downloads": "Downloads",
         "SystemInfo":"Systeminformationen",
         "Configure": "Konfigurieren",
+        "virus_scann": "Virusscan",
         "Exit": "Exit",
         "WinUtils": "Windows Dienstprogramme",
         "Help": "Hilfe",
