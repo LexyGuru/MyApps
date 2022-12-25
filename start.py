@@ -1,40 +1,55 @@
+#***************************************
+# APPS VERZION
+VERSION = [1, 0, 8, 'beta', 2022]
+#***************************************
+
+# n, ne, e, se, s, sw, w, nw,
+# -------------------------------
+# |  -  |  -  |   n    |  -  |  -  |
+# |:---:|:---:|:------:|:---:|:---:|
+# |  -  | nw  |   -    | ne  |  -  |
+# |  w  |  -  | center |  -  |  e  |
+# |  -  | sw  |   -    | se  |  -  |
+# |  -  |  -  |   s    |  -  |  -  |
+
+#***************************************
+# IMPORT MODUL
 import json
 import tkinter as tk
 import os
-
 import pytz
 import sys
-# import subprocess
 import requests
 import psutil
 import platform
 import GPUtil
-from tabulate import tabulate
 
-# from datetime import datetime
+from tabulate import tabulate
 from bs4 import BeautifulSoup as bs
 from tkinter import *
 from tkinter import messagebox
 from tkinter import Tk, Button
 from tkinter.scrolledtext import ScrolledText
 from datetime import datetime
+#***************************************
 
+#***************************************
 my_windows = tk.Tk()
 my_windows.title('WindowsGuiPY')
 my_windows.minsize(700, 400)
 my_windows.geometry('800x400')
 my_menubar = tk.Menu(my_windows)
 
-
 ROOT_DIR = os.path.abspath(os.curdir)
 response = open('config.json', encoding='utf-8')
 data_jsonq = json.loads(response.read())
 lang = (data_jsonq['config_language'][0])
 
-
 path = ROOT_DIR + '/Language/' + lang + '.json'
 isFile = os.path.isfile(path)
 
+#***************************************
+# LANGUAGE FILE
 if isFile:
     language = ROOT_DIR + '/Language/' + lang + '.json'
     response = open(language, encoding='utf-8')
@@ -89,19 +104,15 @@ def verzion():
     def verzion_ch():
         pass
 
-    response = open('config.json', encoding='utf-8')
-    data_jsonq = json.loads(response.read())
-    __verch__ = (data_jsonq['verzion'])
+    __VERCH__ = "{a0}.{a1}.{a2}-{a3}-{a4}".format(
+        a0=VERSION[0],
+        a1=VERSION[1],
+        a2=VERSION[2],
+        a3=VERSION[3],
+        a4=VERSION[4]
+    )
 
-    if __verch__ == datas['name']:
-        # n, ne, e, se, s, sw, w, nw,
-        # -------------------------------
-        # |  -  |  -  |   n    |  -  |  -  |
-        # |:---:|:---:|:------:|:---:|:---:|
-        # |  -  | nw  |   -    | ne  |  -  |
-        # |  w  |  -  | center |  -  |  e  |
-        # |  -  | sw  |   -    | se  |  -  |
-        # |  -  |  -  |   s    |  -  |  -  |
+    if __VERCH__ == datas['name']:
 
         menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8))
         menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'))
@@ -111,7 +122,7 @@ def verzion():
         menu_label_1.place(relx=1, rely=1, anchor='se')
         menu_label_2.place(relx=0.0, rely=1.0, anchor='sw')
 
-    if __verch__ < datas['name']:
+    if __VERCH__ < datas['name']:
 
         menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8), foreground='red')
         menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'), foreground='red')
@@ -124,15 +135,20 @@ def verzion():
         uppdate = tk.Label(my_windows, text="NEW UPDATE", font=('Ethnocentric', 25, 'bold'), foreground='red')
         uppdate.place(relx=0.5, rely=0.54, anchor='center')
 
-    if __verch__ > datas['name']:
-        print('Error')
+    if __VERCH__ > datas['name']:
+        ERROR = tk.Label(my_windows, text="UPDATE ERROR", font=('Ethnocentric', 25, 'bold'), foreground='red')
+        ERROR.place(relx=0.5, rely=0.54, anchor='center')
 
 def weather_google():
+    parent_widget = Tk()
+    parent_widget.title('Weather Google')
+    parent_widget.minsize(450, 750)
+    parent_widget.geometry('450x750')
+
     USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"
     # US english
     LANGUAGE = data_jsonq['language_weather'][0]
     locat = data_jsonq['locations'][0]
-
 
     def get_weather_data(url):
         session = requests.Session()
@@ -176,65 +192,154 @@ def weather_google():
         result['next_days'] = next_days
         return result
 
-    if __name__ == "__main__":
-        URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=weather+" + locat
-        import argparse
-        parser = argparse.ArgumentParser(description="Quick Script for Extracting Weather data using Google Weather")
-        parser.add_argument("region", nargs="?", help="""Region to get weather for, must be available region.
-                                            Default is your current location determined by your IP Address""",
-                            default="")
-        # parse arguments
-        args = parser.parse_args()
-        region = args.region
-        if region:
-            region = region.replace(" ", "+")
-            URL += f"+{region}"
-        # get data
-        data = get_weather_data(URL)
-        # print data
+    URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=weather+" + locat
+    import argparse
 
-        my_windows = tk.Tk()
-        my_windows.title(data_jsonq['locations'][0] + " Console log")
-        my_windows.minsize(862, 455)
-        my_windows.geometry('862x455')
+    parser = argparse.ArgumentParser(description="Quick Script for Extracting Weather data using Google Weather")
+    parser.add_argument("region", nargs="?", help="""Region to get weather for, must be available region.
+                                                Default is your current location determined by your IP Address""",
+                    default="")
+    # parse arguments
+    args = parser.parse_args()
+    region = args.region
+    if region:
+        region = region.replace(" ", "+")
+        URL += f"+{region}"
+    # get data
+    data = get_weather_data(URL)
+    # print data
 
-        log_widget = ScrolledText(my_windows, height=30, width=120, font=("calibri", 12,  "bold", "normal"))
-        log_widget.pack()
+    labelframe_widget00 = LabelFrame(parent_widget, text=data_lang_json[lang][0]['Weather']['Weather_for'])
+    label_widget_top0 = Label(labelframe_widget00, text=data_lang_json[lang][0]['Weather']['Weather_for'] + " " + data["region"])
+    label_widget_top1 = Label(labelframe_widget00, text=data_lang_json[lang][0]['Weather']['Now'] + " " + data["dayhour"])
+    label_widget_top2 = Label(labelframe_widget00,
+                          text=data_lang_json[lang][0]['Weather']['Temperature_now'] + " " + f"{data['temp_now']}°C")
+    label_widget_top3 = Label(labelframe_widget00,
+                          text=data_lang_json[lang][0]['Weather']['Description'] + " " + data['weather_now'])
+    label_widget_top4 = Label(labelframe_widget00,
+                          text=data_lang_json[lang][0]['Weather']['Precipitation'] + " " + data["precipitation"])
+    label_widget_top5 = Label(labelframe_widget00, text=data_lang_json[lang][0]['Weather']['Humidity'] + " " + data["humidity"])
+    label_widget_top6 = Label(labelframe_widget00, text=data_lang_json[lang][0]['Weather']['Wind'] + " " + data["wind"])
 
-        class PrintLogger(object):  # create file like object
+    labelframe_widget00.place(x=300, y=10, anchor='n')
+    label_widget_top0.pack()
+    label_widget_top1.pack()
+    label_widget_top2.pack()
+    label_widget_top3.pack()
+    label_widget_top4.pack()
+    label_widget_top5.pack()
+    label_widget_top6.pack()
 
-            def __init__(self, textbox):  # pass reference to text widget
-                self.textbox = textbox  # keep ref
-
-            def write(self, text):
-                self.textbox.configure(state="normal")  # make field editable
-                self.textbox.insert("end", text)  # write text to textbox
-                self.textbox.see("end")  # scroll to end
-                self.textbox.configure(state="disabled")  # make field readonly
-
-            def flush(self):  # needed for file like object
-                pass
-
-        logger = PrintLogger(log_widget)
-        sys.stdout = logger
-        sys.stderr = logger
-
-        print(data_lang_json[lang][0]['Weather']['Weather_for'], data["region"])
-        print(data_lang_json[lang][0]['Weather']['Now'], data["dayhour"])
-        print(data_lang_json[lang][0]['Weather']['Temperature_now'], f"{data['temp_now']}°C")
-        print(data_lang_json[lang][0]['Weather']['Description'],data['weather_now'])
-        print(data_lang_json[lang][0]['Weather']['Precipitation'],data["precipitation"])
-        print(data_lang_json[lang][0]['Weather']['Humidity'],data["humidity"])
-        print(data_lang_json[lang][0]['Weather']['Wind'],data["wind"])
-        print(data_lang_json[lang][0]['Weather']['Next_days'])
+    for dayweather in data["next_days"]:
+        pass
 
 
-        for dayweather in data["next_days"]:
-            print("\r")
-            print("=" * 40, dayweather["name"], "=" * 40)
-            print(data_lang_json[lang][0]['Weather']['Description'], dayweather["weather"])
-            print(data_lang_json[lang][0]['Weather']['Max_temperature'], f"{dayweather['max_temp']}°C")
-            print(data_lang_json[lang][0]['Weather']['Min_temperature'], f"{dayweather['min_temp']}°C")
+    labelframe_widget = LabelFrame(parent_widget, text=data["next_days"][0]['name'])
+    label_widget0 = Label(labelframe_widget,
+                      text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][0]['weather'])
+    label_widget1 = Label(labelframe_widget,
+                      text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][0]['max_temp'])
+    label_widget2 = Label(labelframe_widget,
+                      text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][0]['min_temp'])
+
+    labelframe_widget1 = LabelFrame(parent_widget, text=data["next_days"][1]['name'])
+    label_widget3 = Label(labelframe_widget1,
+                      text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][1]['weather'])
+    label_widget4 = Label(labelframe_widget1,
+                      text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][1]['max_temp'])
+    label_widget5 = Label(labelframe_widget1,
+                      text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][1]['min_temp'])
+
+    labelframe_widget2 = LabelFrame(parent_widget, text=data["next_days"][2]['name'])
+    label_widget6 = Label(labelframe_widget2,
+                      text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][2]['weather'])
+    label_widget7 = Label(labelframe_widget2,
+                      text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][2]['max_temp'])
+    label_widget8 = Label(labelframe_widget2,
+                      text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][2]['min_temp'])
+
+    labelframe_widget3 = LabelFrame(parent_widget, text=data["next_days"][3]['name'])
+    label_widget9 = Label(labelframe_widget3,
+                      text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][3]['weather'])
+    label_widget10 = Label(labelframe_widget3,
+                       text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][3]['max_temp'])
+    label_widget11 = Label(labelframe_widget3,
+                       text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][3]['min_temp'])
+
+    labelframe_widget4 = LabelFrame(parent_widget, text=data["next_days"][4]['name'])
+    label_widget12 = Label(labelframe_widget4,
+                       text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][4]['weather'])
+    label_widget13 = Label(labelframe_widget4,
+                       text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][4]['max_temp'])
+    label_widget14 = Label(labelframe_widget4,
+                       text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][4]['min_temp'])
+
+    labelframe_widget5 = LabelFrame(parent_widget, text=data["next_days"][5]['name'])
+    label_widget15 = Label(labelframe_widget5,
+                       text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][5]['weather'])
+    label_widget16 = Label(labelframe_widget5,
+                       text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][5]['max_temp'])
+    label_widget17 = Label(labelframe_widget5,
+                       text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][5]['min_temp'])
+
+    labelframe_widget6 = LabelFrame(parent_widget, text=data["next_days"][6]['name'])
+    label_widget18 = Label(labelframe_widget6,
+                       text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][6]['weather'])
+    label_widget19 = Label(labelframe_widget6,
+                       text=data_lang_json[lang][0]['Weather']['Max_temperature'] + " " + data["next_days"][6]['max_temp'])
+    label_widget20 = Label(labelframe_widget6,
+                       text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][6]['min_temp'])
+
+    labelframe_widget7 = LabelFrame(parent_widget, text=data["next_days"][7]['name'])
+    label_widget21 = Label(labelframe_widget7,
+                       text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][7]['weather'])
+    label_widget22 = Label(labelframe_widget7,
+                       text=data_lang_json[lang][0]['Weather']['Max_temperature']  + " " + data["next_days"][7]['max_temp'])
+    label_widget23 = Label(labelframe_widget7,
+                       text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][7]['min_temp'])
+
+    # n, ne, e, se, s, sw, w, nw,
+    # -------------------------------
+    # |  -  |  -  |   n    |  -  |  -  |
+    # |:---:|:---:|:------:|:---:|:---:|
+    # |  -  | nw  |   -    | ne  |  -  |
+    # |  w  |  -  | center |  -  |  e  |
+    # |  -  | sw  |   -    | se  |  -  |
+    # |  -  |  -  |   s    |  -  |  -  |
+
+    labelframe_widget.place(x=10, y=10, anchor='nw')
+    labelframe_widget1.place(x=10, y=100, anchor='nw')
+    labelframe_widget2.place(x=10, y=190, anchor='nw')
+    labelframe_widget3.place(x=10, y=280, anchor='nw')
+    labelframe_widget4.place(x=10, y=370, anchor='nw')
+    labelframe_widget5.place(x=10, y=460, anchor='nw')
+    labelframe_widget6.place(x=10, y=550, anchor='nw')
+    labelframe_widget7.place(x=10, y=640, anchor='nw')
+
+    label_widget0.pack()
+    label_widget1.pack()
+    label_widget2.pack()
+    label_widget3.pack()
+    label_widget4.pack()
+    label_widget5.pack()
+    label_widget6.pack()
+    label_widget7.pack()
+    label_widget8.pack()
+    label_widget9.pack()
+    label_widget10.pack()
+    label_widget11.pack()
+    label_widget12.pack()
+    label_widget13.pack()
+    label_widget14.pack()
+    label_widget15.pack()
+    label_widget16.pack()
+    label_widget17.pack()
+    label_widget18.pack()
+    label_widget19.pack()
+    label_widget20.pack()
+    label_widget21.pack()
+    label_widget22.pack()
+    label_widget23.pack()
 
 
 def systeminfo():
