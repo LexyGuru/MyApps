@@ -4,12 +4,19 @@
   ],
   "hun": [
     {
+      "Messages": {
+        "Messages": "Figyelem",
+        "Messages_info_log": "Nem található a naplófájl megnyitásakor",
+        "Messages_warning": "Hiba",
+        "Messages_language_error": "A nyelvi fájl nem található!!!"
+      },
+
       "Menu": {
         "Version": "UPDATE",
-        "Downloads": "Letöltés",
         "SystemInfo":"Rendszerinfó",
-        "virus_scann": "Víruskeresés",
+        "Downloads": "Letöltés",
         "Configure": "Beállítások",
+        "virus_scann": "Víruskeresés",
         "Exit": "Kilépés",
         "WinUtils": "Windows Segédprogramok",
         "Help": "Segítég",
@@ -19,6 +26,7 @@
       },
 
       "Weather": {
+        "Weather" : "Időjárás",
         "Weather_for" : "Időjárás ehhez:",
         "Now": "Most:",
         "Temperature_now": "Hőmérséklet most:",
@@ -73,8 +81,16 @@
         "Qobuz" : "Qobuz",
         "Pandora" : "Pandora",
         "SiriusXM_Internet_Radio" : "SiriusXM Internet Radio"
-      }
+      },
 
+      "Microsoft":{
+        "Microsoft_Apps": "Microsoft alkalmazások",
+        "Microsoft_security": "Microsoft Security",
+        "Sec_Quick": "Gyors vizsgálat",
+        "Sec_Full": "Teljes vizsgálat",
+        "Sec_log_open": "Nyissa meg a Naplót",
+        "Sec_log_reset": "Napló visszaállítása"
+      }
     }
   ]
 }

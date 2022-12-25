@@ -1,1 +1,9 @@
-{"config_language": ["hun"],  "timezone": ["Europe/Budapest"], "language_weather": ["hu-HU,hu;q=0.5"], "locations": ["oberndorf+bei+salzburg"]}
+{
+  "config_language": ["hun"],
+  "timezone": ["Europe/Budapest"],
+  "language_weather": ["hu-HU,hu;q=0.5"],
+  "locations": ["oberndorf+bei+salzburg"],
+
+  "__COMMENT__": "---> NOT EDIT <---",
+  "config_error_language": ["eng"]
+}

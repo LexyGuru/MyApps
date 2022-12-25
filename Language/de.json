@@ -4,10 +4,17 @@
   ],
   "de": [
     {
+      "Messages": {
+        "Messages": "Warnung",
+        "Messages_info_log": "Protokolldatei zum Öffnen nicht gefunden",
+        "Messages_warning": "Fehler",
+        "Messages_language_error": "Sprachdatei nicht gefunden!!!"
+      },
+
       "Menu": {
         "Version": "UPDATE",
-        "Downloads": "Downloads",
         "SystemInfo":"Systeminformationen",
+        "Downloads": "Downloads",
         "Configure": "Konfigurieren",
         "virus_scann": "Virusscan",
         "Exit": "Exit",
@@ -73,6 +80,15 @@
         "Qobuz" : "Qobuz",
         "Pandora" : "Pandora",
         "SiriusXM_Internet_Radio" : "SiriusXM Internet Radio"
+      },
+
+      "Microsoft":{
+        "Microsoft_Apps": "Microsoft Apps",
+        "Microsoft_security": "Microsoft-Sicherheit",
+        "Sec_Quick": "Schneller Scan",
+        "Sec_Full": "Kompletter Suchlauf",
+        "Sec_log_open": "Protokoll öffnen",
+        "Sec_log_reset": "Protokoll zurücksetzen"
       }
     }
   ]

@@ -4,6 +4,13 @@
   ],
   "eng": [
     {
+      "Messages": {
+        "Messages": "Warning",
+        "Messages_info_log": "Not found opening log file",
+        "Messages_warning": "Error",
+        "Messages_language_error": "Language File Not Found!!!"
+      },
+
       "Menu": {
         "Version": "UPDATE",
         "SystemInfo":"System Info",
@@ -73,6 +80,15 @@
         "Qobuz" : "Qobuz",
         "Pandora" : "Pandora",
         "SiriusXM_Internet_Radio" : "SiriusXM Internet Radio"
+      },
+
+      "Microsoft":{
+        "Microsoft_Apps": "Microsoft Apps",
+        "Microsoft_security": "Microsoft Security",
+        "Sec_Quick": "Quick scan",
+        "Sec_Full": "Full scan",
+        "Sec_log_open": "Open Log",
+        "Sec_log_reset": "Reset Log"
       }
     }
   ]
