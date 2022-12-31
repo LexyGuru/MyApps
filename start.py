@@ -1,6 +1,6 @@
 # ***************************************
 # APPS VERZION
-VERSION = [1, 1, 0, 'beta', 2022]
+VERSION = [1, 2, 11, 'beta', 2023]
 # ***************************************
 
 # n, ne, e, se, s, sw, w, nw,
@@ -25,6 +25,7 @@ import GPUtil
 import subprocess as sp
 import json
 import requests
+import time
 
 from tabulate import tabulate
 from bs4 import BeautifulSoup as bs
@@ -39,9 +40,10 @@ from datetime import datetime
 # ***************************************
 my_windows = tk.Tk()
 my_windows.title('WindowsGuiPY')
-my_windows.minsize(700, 400)
 my_windows.geometry('800x400')
+my_windows.resizable(False, False)
 my_menubar = tk.Menu(my_windows)
+
 
 ROOT_DIR = os.path.abspath(os.curdir)
 response = open('config.json', encoding='utf-8')
@@ -50,6 +52,8 @@ lang = (data_jsonq['config_language'][0])
 
 path = ROOT_DIR + '/Language/' + lang + '.json'
 isFile = os.path.isfile(path)
+
+
 
 # ***************************************
 # LANGUAGE FILE
@@ -61,8 +65,56 @@ if isFile:
 
     # ***************************************
     # SCRIPT FILE
-    Win_Scipt0 = ROOT_DIR + " "
-    Win_Scipt1 = ROOT_DIR + " "
+    def Win_Scipt0():
+        ip = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['ip']
+        __aa__ = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['__aa__']
+        ports = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['port']
+        sections = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['sections']
+        Token = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['X-Plex-Token']
+
+        url = 'http://' + ip + __aa__ + ports + '/library/sections/' + sections + '/all?X-Plex-Token=' + Token
+        response = requests.get(url)
+
+        import xml.etree.ElementTree as ET
+
+        root = ET.fromstring(response.text)
+
+        from prettytable import PrettyTable
+
+        table = PrettyTable()
+        table.field_names = ['Title', 'Summary']
+        table.max_width = 45
+
+        for video in root.findall('./Video'):
+            title = video.get('title') + '\n' + '-------------------------------------------->'
+            summary = video.get('summary') + '\n' + '---------------------------------------------'
+            table.add_row([title, summary])
+
+        # print(table)
+
+        import tkinter as tk
+
+        # create the main window
+        window = tk.Tk()
+        window.title("Plex Media Server")
+        window.geometry("800x400")
+        window.resizable(False, False)
+
+        # create a scrollbar
+        scrollbar = tk.Scrollbar(window)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # create a text widget to display the table
+        text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=800, height=400)
+        text.pack(side=tk.LEFT, fill=tk.BOTH)
+        scrollbar.config(command=text.yview)
+
+        # insert the table into the text widget
+        text.insert(tk.END, str(table))
+
+    def Win_Scipt1():
+        pass
+
     Win_Scipt2 = ROOT_DIR + " "
     Win_Scipt3 = ROOT_DIR + " "
     Win_Scipt4 = ROOT_DIR + " "
@@ -70,6 +122,16 @@ if isFile:
     Win_Scipt6 = ROOT_DIR + " "
     Win_Scipt7 = ROOT_DIR + " "
 
+    image = tk.PhotoImage(file=ROOT_DIR + "\Script\gui.png")
+    canvas = tk.Canvas(my_windows, width=800, height=400)
+    canvas.create_image(0, 0, image=image, anchor="nw")
+
+    text_id = canvas.create_text(400, 180, text="Hello World!", font=("Helvetica", 30, 'bold'), anchor="center")
+    canvas.itemconfig(text_id, text="Goodbye World!", fill="green2")
+    text_id1 = canvas.create_text(400, 210, text="Hello World!", font=("Helvetica", 20, 'bold'), anchor="center")
+    canvas.itemconfig(text_id1, text="Goodbye World!", fill="green4")
+
+    canvas.pack()
 
     # ****************************************
     # SCRIPT VIRUS SCAN
@@ -139,21 +201,15 @@ if isFile:
 
 
     def clock():
+        # Aktuális idő lekérdezése
         dd = (''.join(data_jsonq['timezone'][0]))
-        date_time = datetime.now(pytz.timezone(dd)).strftime("%d-%m-%Y %H:%M:%S/%p")
-        date, time1 = date_time.split()
-        time2, time3 = time1.split('/')
-        hour, minutes, seconds = time2.split(':')
+        #current_time = time.strftime("%Y-%m-%d %H:%M:%S/%p")
+        current_time = datetime.now(pytz.timezone(dd)).strftime("%H:%M:%S")
+        current_date = datetime.now(pytz.timezone(dd)).strftime("%d-%m-%Y")
 
-        if int(hour) > 11 and int(hour) < 24:
-
-            time = str(int(hour) - 12) + ':' + minutes + ':' + seconds + ' ' + time3
-        else:
-            time = time2 + ' ' + time3
-        time_label.config(text=time)
-        date_label.config(text=date)
-        time_label.after(1000, clock)
-
+        canvas.itemconfig(text_id, text=current_time)
+        canvas.itemconfig(text_id1, text=current_date)
+        my_windows.after(1000, clock)
 
     def verzions():
         url = requests.get("https://api.github.com/repos/LexyGuru/MyApps/releases")
@@ -172,7 +228,7 @@ if isFile:
         if __VERCH__ == datas['name']:
             menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8))
             menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'))
-            menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold'))
+            menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold' ))
 
             menu_label_0.place(relx=0.5, rely=1.0, anchor='s')
             menu_label_1.place(relx=1, rely=1, anchor='se')
@@ -1433,10 +1489,6 @@ if isFile:
     # **************************************************************************************************
     # TOP GUI
 
-    date_label = tk.Label(my_windows, font=('calibri 30 bold', 10, 'bold'), foreground='black')
-    time_label = tk.Label(my_windows, font=('calibri 30 bold', 30, 'bold'), foreground='black')
-    date_label.place(relx=0.5, rely=0.54, anchor='center')
-    time_label.place(relx=0.5, rely=0.45, anchor='center')
     verzions()
     clock()
 
@@ -1469,7 +1521,15 @@ if isFile:
     my_dropdown_menu_help.add_command(label=data_lang_json[lang][0]['Menu']['Exit'], command=exits)
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Menu']['Help'], menu=my_dropdown_menu_help)
 
+    my_dropdown_menu_favo = tk.Menu(my_menubar, tearoff=0)
+    my_dropdown_menu_favo.add_command(label="Plex Media server", command=Win_Scipt0)
+    my_dropdown_menu_favo.add_command(label="qBittorent", command=Win_Scipt1)
+    #my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['Menu']['Exit'], command=exits)
+    my_menubar.add_cascade(label="Teszt", menu=my_dropdown_menu_favo)
+
+
     my_windows.config(menu=my_menubar)
+
     my_windows.mainloop()
 
 else:

@@ -4,6 +4,26 @@
   "language_weather": ["hu-HU,hu;q=0.5"],
   "locations": ["oberndorf+bei+salzburg"],
 
+
+  "__COMMENT_QBITTORENT_WEBAPI__": {
+    "host": ["localhost"],
+    "port": [8080],
+    "username": ["lexyguru"],
+    "password": ["Miki1987"]
+    },
+
+  "__COMMENT_PLEX_SERVER_WEBAPI__": {
+    "ip": "localhost",
+    "__aa__": ":",
+    "port": "32400",
+    "sections": "1",
+
+    "__COMMNETS__": "HKEY_CURRENT_USER\\SOFTWARE\\Plex, Inc.\\Plex Media Server",
+    "X-Plex-Token": "MkPxY7Ex96tYsDLjHvZN"
+    },
+
+
+
   "__COMMENT__": "---> NOT EDIT <---",
   "config_error_language": ["eng"]
 }
