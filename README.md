@@ -42,7 +42,10 @@
 | Halite BitTorrent Client | Imediashare         | -                     | -                       | -                   |
 | -                        | Ampache             | -                     | -                       | -                   |
 
-
+# Teszt API
+| Plex Media server | qBittorent |
+|----------------|------|
+|                |      |
 
 # Beta version
 - added consol log
