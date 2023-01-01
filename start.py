@@ -25,7 +25,7 @@ import GPUtil
 import subprocess as sp
 import json
 import requests
-import time
+import qbittorrentapi
 
 from tabulate import tabulate
 from bs4 import BeautifulSoup as bs
@@ -52,7 +52,6 @@ lang = (data_jsonq['config_language'][0])
 
 path = ROOT_DIR + '/Language/' + lang + '.json'
 isFile = os.path.isfile(path)
-
 
 
 # ***************************************
@@ -113,7 +112,78 @@ if isFile:
         text.insert(tk.END, str(table))
 
     def Win_Scipt1():
-        pass
+        host = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['host'][0]
+        port = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['port'][0]
+        username = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['username'][0]
+        password = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['password'][0]
+
+        qbt_client = qbittorrentapi.Client(
+            host=host,
+            port=port,
+            username=username,
+            password=password
+        )
+
+        try:
+            qbt_client.auth_log_in()
+        except qbittorrentapi.LoginFailed as e:
+            print(e)
+
+        from prettytable import PrettyTable
+        table = PrettyTable()
+        table.field_names = ['Web API', 'Verzio']
+        table.max_width = 70
+        xx = "qBittorrent"
+        xxx = (f'{qbt_client.app.version}')
+        yy = "qBittorrent Web API"
+        yyy = (f'{qbt_client.app.web_api_version}')
+        table.add_row([xx, xxx])
+        table.add_row([yy, yyy])
+
+        for k, v in qbt_client.app.build_info.items():
+            Web_API = (f'{k}')
+            Verzio = (f'{v}')
+
+            table.add_row([Web_API, Verzio])
+
+        table1 = PrettyTable()
+        table1.field_names = ['hash', 'name', 'state']
+        table1.max_width = 200
+
+        for torrent in qbt_client.torrents_info():
+            hash = (f'{torrent.hash[-6:]}')
+            name = (f'{torrent.name}')
+            state = (f'{torrent.state}')
+            table1.add_row([hash, name, state])
+
+        window = tk.Tk()
+        window.title("qBittorrent API Info")
+        window.geometry("300x300")
+        window.resizable(False, False)
+
+        scrollbar = tk.Scrollbar(window)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=300, height=300)
+        text.pack(side=tk.LEFT, fill=tk.BOTH)
+        scrollbar.config(command=text.yview)
+
+        text.insert(tk.END, str(table) + "\n")
+
+        window = tk.Tk()
+        window.title("qBittorrent API")
+        window.geometry("900x400")
+        window.resizable(False, False)
+
+        scrollbar = tk.Scrollbar(window)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=800, height=400)
+        text.pack(side=tk.LEFT, fill=tk.BOTH)
+        scrollbar.config(command=text.yview)
+
+        text.insert(tk.END, str(table1))
+
 
     Win_Scipt2 = ROOT_DIR + " "
     Win_Scipt3 = ROOT_DIR + " "
@@ -1516,16 +1586,15 @@ if isFile:
     my_dropdown_menu_music.add_command(label=data_lang_json[lang][0]['Music']['Music_list'], command=music.music_stream)
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Music']['Music'], menu=my_dropdown_menu_music)
 
+    my_dropdown_menu_favo = tk.Menu(my_menubar, tearoff=0)
+    my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['MyFavUtils']['Plex_Media_server'], command=Win_Scipt0)
+    my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['MyFavUtils']['qBittorent'], command=Win_Scipt1)
+    my_menubar.add_cascade(label=data_lang_json[lang][0]['MyFavUtils']['My_Favorite_Utilities'], menu=my_dropdown_menu_favo)
+
     my_dropdown_menu_help = tk.Menu(my_menubar, tearoff=0)
     my_dropdown_menu_help.add_command(label=data_lang_json[lang][0]['Menu']['Configure'], command=configure)
     my_dropdown_menu_help.add_command(label=data_lang_json[lang][0]['Menu']['Exit'], command=exits)
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Menu']['Help'], menu=my_dropdown_menu_help)
-
-    my_dropdown_menu_favo = tk.Menu(my_menubar, tearoff=0)
-    my_dropdown_menu_favo.add_command(label="Plex Media server", command=Win_Scipt0)
-    my_dropdown_menu_favo.add_command(label="qBittorent", command=Win_Scipt1)
-    #my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['Menu']['Exit'], command=exits)
-    my_menubar.add_cascade(label="Teszt", menu=my_dropdown_menu_favo)
 
 
     my_windows.config(menu=my_menubar)

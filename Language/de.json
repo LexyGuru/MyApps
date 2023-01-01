@@ -89,6 +89,12 @@
         "Sec_Full": "Kompletter Suchlauf",
         "Sec_log_open": "Protokoll öffnen",
         "Sec_log_reset": "Protokoll zurücksetzen"
+      },
+
+      "MyFavUtils":{
+        "Plex_Media_server": "Plex Media server",
+        "qBittorent": "qBittorent",
+        "My_Favorite_Utilities": "Meine Lieblings-Utilities"
       }
     }
   ]

@@ -23,6 +23,7 @@
 
 ---
 # Web list
+
 | Torrent                  | Media               | Video editor          | Music Stream            | Game Launcher       |
 |--------------------------|---------------------|-----------------------|-------------------------|---------------------|
 | Bittorrent               | PlayOn              | Shotcut               | Bandcamp                | Electronics Arts    |
@@ -42,14 +43,61 @@
 | Halite BitTorrent Client | Imediashare         | -                     | -                       | -                   |
 | -                        | Ampache             | -                     | -                       | -                   |
 
-# Teszt API
-| Plex Media server | qBittorent |
-|----------------|------|
-|                |      |
+# Server API
 
-# Beta version
-- added consol log
-- bug report
+| Plex Media server | qBittorent            |
+|-------------------|-----------------------|
+| Title  / Summary  | Web API / Verzio      |
+| -                 | Hash /  Name /  State |
+
+
+# Python 
+
+| Apps               | Ver             |
+|--------------------|-----------------|
+| Python             | 3.11            |
+| Django             | 4.1.4           |
+| GPUtil             | 	1.4.0          |
+| Naked              | 	0.1.32         |
+| Pillow             | 	9.3.0          |
+| PlexAPI            | 	4.13.2         |
+| PyYAML             | 	6.0            |
+| aes                | 	1.2.0          |
+| asgiref            | 	3.6.0          |
+| beautifulsoup4     | 	4.11.1         |
+| bs4                | 	0.0.1          |
+| certifi            | 	2022.12.7      |
+| charset-normalizer | 	2.1.1	         |
+| gdata              | 	2.0.18	        |
+| idna               | 	3.4	           |
+| image              | 	1.5.33	        |
+| numpy              | 	1.24.0	        |
+| pandas             | 	1.5.2	         |
+| pip                | 	21.3.1	        |
+| prettytable        | 	3.5.0	         |
+| psutil             | 	5.9.4	         |
+| pycryptodome       | 	3.16.0	        |
+| pypiwin32          | 	223	           |
+| python-dateutil    | 	2.8.2	         | 
+| pytz               | 	2022.7	        |
+| pywin32            | 	305	           |
+| qbittorrent-api    | 	2022.11.40	    |
+| requests           | 	2.28.1	        |
+| setuptools         | 	65.6.3	        |
+| shellescape        | 	3.8.1	         |
+| six                | 	1.16.0	        |
+| soupsieve          | 	2.3.2.post1	   |
+| sqlparse           | 	0.4.3	         | 
+| tabulate           | 	0.9.0	         |
+| tzdata             | 	2022.7	        |
+| urllib3            | 	2.0.0a2	       |
+| utils              | 	1.0.1	         | 
+| wcwidth            | 	0.2.5	         |
+| wheel              | 	0.37.1	        |
+| win32compat        | 	221.11	        |
+| xmltodict          | 	0.12.0	        |
+| xmltojson          | 	2.0.1	         |
+
 
 
 

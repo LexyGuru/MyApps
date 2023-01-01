@@ -90,6 +90,12 @@
         "Sec_Full": "Teljes vizsgálat",
         "Sec_log_open": "Nyissa meg a Naplót",
         "Sec_log_reset": "Napló visszaállítása"
+      },
+
+      "MyFavUtils":{
+        "Plex_Media_server": "Plex Media server",
+        "qBittorent": "qBittorent",
+        "My_Favorite_Utilities": "Kedvenc Segédprogramjaim"
       }
     }
   ]

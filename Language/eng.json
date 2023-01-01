@@ -89,6 +89,12 @@
         "Sec_Full": "Full scan",
         "Sec_log_open": "Open Log",
         "Sec_log_reset": "Reset Log"
+      },
+
+      "MyFavUtils":{
+        "Plex_Media_server": "Plex Media server",
+        "qBittorent": "qBittorent",
+        "My_Favorite_Utilities": "My Favorite Utilities"
       }
     }
   ]
