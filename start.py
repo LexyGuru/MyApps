@@ -196,10 +196,17 @@ if isFile:
     canvas = tk.Canvas(my_windows, width=800, height=400)
     canvas.create_image(0, 0, image=image, anchor="nw")
 
-    text_id = canvas.create_text(400, 180, text="Hello World!", font=("Helvetica", 30, 'bold'), anchor="center")
-    canvas.itemconfig(text_id, text="Goodbye World!", fill="green2")
-    text_id1 = canvas.create_text(400, 210, text="Hello World!", font=("Helvetica", 20, 'bold'), anchor="center")
-    canvas.itemconfig(text_id1, text="Goodbye World!", fill="green4")
+    text_time = canvas.create_text(400, 180, text=" ", font=("Helvetica", 30, 'bold'), anchor="center")
+    canvas.itemconfig(text_time, text=" ", fill="green2")
+    text_date = canvas.create_text(400, 210, text=" ", font=("Helvetica", 20, 'bold'), anchor="center")
+    canvas.itemconfig(text_date, text=" ", fill="green4")
+
+    text_zipball_url = canvas.create_text(400, 395, text=" ", font=("Ethnocentric", 10, 'bold'), anchor="s")
+    canvas.itemconfig(text_zipball_url, text=" ", fill="white")
+    text_published_at = canvas.create_text(795, 395, text=" ", font=("Ethnocentric", 10, 'bold'), anchor="se")
+    canvas.itemconfig(text_published_at, text=" ", fill="white")
+    text_name = canvas.create_text(5, 395, text=" ", font=("Ethnocentric", 10, 'bold'), anchor="sw")
+    canvas.itemconfig(text_name, text=" ", fill="white")
 
     canvas.pack()
 
@@ -277,8 +284,8 @@ if isFile:
         current_time = datetime.now(pytz.timezone(dd)).strftime("%H:%M:%S")
         current_date = datetime.now(pytz.timezone(dd)).strftime("%d-%m-%Y")
 
-        canvas.itemconfig(text_id, text=current_time)
-        canvas.itemconfig(text_id1, text=current_date)
+        canvas.itemconfig(text_time, text=current_time)
+        canvas.itemconfig(text_date, text=current_date)
         my_windows.after(1000, clock)
 
     def verzions():
@@ -296,13 +303,14 @@ if isFile:
         )
 
         if __VERCH__ == datas['name']:
-            menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8))
-            menu_label_1 = tk.Label(my_windows, text=datas['published_at'], font=('Ethnocentric', 8, 'bold'))
-            menu_label_2 = tk.Label(my_windows, text=datas['name'], font=('Ethnocentric', 8, 'bold' ))
+            zipball_url = datas['zipball_url']
+            canvas.itemconfig(text_zipball_url, text=zipball_url)
+            published_at = datas['published_at']
+            canvas.itemconfig(text_published_at, text=published_at)
+            name = datas['name']
+            canvas.itemconfig(text_name, text=name)
 
-            menu_label_0.place(relx=0.5, rely=1.0, anchor='s')
-            menu_label_1.place(relx=1, rely=1, anchor='se')
-            menu_label_2.place(relx=0.0, rely=1.0, anchor='sw')
+
 
         if __VERCH__ < datas['name']:
             menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8), foreground='red')
