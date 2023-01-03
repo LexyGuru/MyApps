@@ -43,7 +43,8 @@
 | Halite BitTorrent Client | Imediashare         | -                     | -                       | -                   |
 | -                        | Ampache             | -                     | -                       | -                   |
 
-# Server API
+# Server API 
+> It cannot be viewed when the program is not running! 
 
 | Plex Media server | qBittorent            |
 |-------------------|-----------------------|

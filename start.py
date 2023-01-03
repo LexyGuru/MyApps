@@ -44,7 +44,6 @@ my_windows.geometry('800x400')
 my_windows.resizable(False, False)
 my_menubar = tk.Menu(my_windows)
 
-
 ROOT_DIR = os.path.abspath(os.curdir)
 response = open('config.json', encoding='utf-8')
 data_jsonq = json.loads(response.read())
@@ -52,7 +51,6 @@ lang = (data_jsonq['config_language'][0])
 
 path = ROOT_DIR + '/Language/' + lang + '.json'
 isFile = os.path.isfile(path)
-
 
 # ***************************************
 # LANGUAGE FILE
@@ -64,135 +62,161 @@ if isFile:
 
     # ***************************************
     # SCRIPT FILE
-    def Win_Scipt0():
-        ip = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['ip']
-        __aa__ = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['__aa__']
-        ports = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['port']
-        sections = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['sections']
-        Token = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['X-Plex-Token']
-
-        url = 'http://' + ip + __aa__ + ports + '/library/sections/' + sections + '/all?X-Plex-Token=' + Token
-        response = requests.get(url)
-
-        import xml.etree.ElementTree as ET
-
-        root = ET.fromstring(response.text)
-
-        from prettytable import PrettyTable
-
-        table = PrettyTable()
-        table.field_names = ['Title', 'Summary']
-        table.max_width = 45
-
-        for video in root.findall('./Video'):
-            title = video.get('title') + '\n' + '-------------------------------------------->'
-            summary = video.get('summary') + '\n' + '---------------------------------------------'
-            table.add_row([title, summary])
-
-        # print(table)
-
-        import tkinter as tk
-
-        # create the main window
-        window = tk.Tk()
-        window.title("Plex Media Server")
-        window.geometry("800x400")
-        window.resizable(False, False)
-
-        # create a scrollbar
-        scrollbar = tk.Scrollbar(window)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-        # create a text widget to display the table
-        text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=800, height=400)
-        text.pack(side=tk.LEFT, fill=tk.BOTH)
-        scrollbar.config(command=text.yview)
-
-        # insert the table into the text widget
-        text.insert(tk.END, str(table))
-
-    def Win_Scipt1():
-        host = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['host'][0]
-        port = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['port'][0]
-        username = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['username'][0]
-        password = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['password'][0]
-
-        qbt_client = qbittorrentapi.Client(
-            host=host,
-            port=port,
-            username=username,
-            password=password
-        )
-
-        try:
-            qbt_client.auth_log_in()
-        except qbittorrentapi.LoginFailed as e:
-            print(e)
-
-        from prettytable import PrettyTable
-        table = PrettyTable()
-        table.field_names = ['Web API', 'Verzio']
-        table.max_width = 70
-        xx = "qBittorrent"
-        xxx = (f'{qbt_client.app.version}')
-        yy = "qBittorrent Web API"
-        yyy = (f'{qbt_client.app.web_api_version}')
-        table.add_row([xx, xxx])
-        table.add_row([yy, yyy])
-
-        for k, v in qbt_client.app.build_info.items():
-            Web_API = (f'{k}')
-            Verzio = (f'{v}')
-
-            table.add_row([Web_API, Verzio])
-
-        table1 = PrettyTable()
-        table1.field_names = ['hash', 'name', 'state']
-        table1.max_width = 200
-
-        for torrent in qbt_client.torrents_info():
-            hash = (f'{torrent.hash[-6:]}')
-            name = (f'{torrent.name}')
-            state = (f'{torrent.state}')
-            table1.add_row([hash, name, state])
-
-        window = tk.Tk()
-        window.title("qBittorrent API Info")
-        window.geometry("300x300")
-        window.resizable(False, False)
-
-        scrollbar = tk.Scrollbar(window)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-        text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=300, height=300)
-        text.pack(side=tk.LEFT, fill=tk.BOTH)
-        scrollbar.config(command=text.yview)
-
-        text.insert(tk.END, str(table) + "\n")
-
-        window = tk.Tk()
-        window.title("qBittorrent API")
-        window.geometry("900x400")
-        window.resizable(False, False)
-
-        scrollbar = tk.Scrollbar(window)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-        text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=800, height=400)
-        text.pack(side=tk.LEFT, fill=tk.BOTH)
-        scrollbar.config(command=text.yview)
-
-        text.insert(tk.END, str(table1))
+    def find_process(name):
+        for proc in psutil.process_iter():
+            try:
+                if name.lower() in proc.name().lower():
+                    return proc
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                pass
+        return None
 
 
-    Win_Scipt2 = ROOT_DIR + " "
-    Win_Scipt3 = ROOT_DIR + " "
-    Win_Scipt4 = ROOT_DIR + " "
-    Win_Scipt5 = ROOT_DIR + " "
-    Win_Scipt6 = ROOT_DIR + " "
-    Win_Scipt7 = ROOT_DIR + " "
+    process1 = find_process("qbittorrent")
+    process2 = find_process("plex media server")
+    '''process3 = find_process("microsoft edge")'''
 
-    image = tk.PhotoImage(file=ROOT_DIR + "\Script\gui.png")
+    my_dropdown_menu_favo = tk.Menu(my_menubar, tearoff=0)
+
+    if process1 is not None:
+        def qBittorent():
+            host = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['host'][0]
+            port = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['port'][0]
+            username = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['username'][0]
+            password = data_jsonq['__COMMENT_QBITTORENT_WEBAPI__']['password'][0]
+
+            qbt_client = qbittorrentapi.Client(
+                host=host,
+                port=port,
+                username=username,
+                password=password
+            )
+
+            try:
+                qbt_client.auth_log_in()
+            except qbittorrentapi.LoginFailed as e:
+                print(e)
+
+            from prettytable import PrettyTable
+            table = PrettyTable()
+            table.field_names = ['Web API', 'Verzio']
+            table.max_width = 70
+            xx = "qBittorrent"
+            xxx = f'{qbt_client.app.version}'
+            yy = "qBittorrent Web API"
+            yyy = f'{qbt_client.app.web_api_version}'
+            table.add_row([xx, xxx])
+            table.add_row([yy, yyy])
+
+            for k, v in qbt_client.app.build_info.items():
+                Web_API = f'{k}'
+                Verzio = f'{v}'
+
+                table.add_row([Web_API, Verzio])
+
+            table1 = PrettyTable()
+            table1.field_names = ['hash', 'name', 'state']
+            table1.max_width = 200
+
+            for torrent in qbt_client.torrents_info():
+                hash = f'{torrent.hash[-6:]}'
+                name = f'{torrent.name}'
+                state = f'{torrent.state}'
+                table1.add_row([hash, name, state])
+
+            window = tk.Tk()
+            window.title("qBittorrent API Info")
+            window.geometry("300x300")
+            window.resizable(False, False)
+
+            scrollbar = tk.Scrollbar(window)
+            scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+            text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=300, height=300)
+            text.pack(side=tk.LEFT, fill=tk.BOTH)
+            scrollbar.config(command=text.yview)
+
+            text.insert(tk.END, str(table) + "\n")
+
+            window = tk.Tk()
+            window.title("qBittorrent API")
+            window.geometry("900x400")
+            window.resizable(False, False)
+
+            scrollbar = tk.Scrollbar(window)
+            scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+            text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=800, height=400)
+            text.pack(side=tk.LEFT, fill=tk.BOTH)
+            scrollbar.config(command=text.yview)
+
+            text.insert(tk.END, str(table1))
+
+
+        print(f"A qbittorrent program fut: pid={process1.pid}")
+        my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['MyFavUtils']['qBittorent'], command=qBittorent)
+    else:
+        print("A qbittorrent program nem fut.")
+
+    if process2 is not None:
+        def Plex_Media_server():
+            ip = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['ip']
+            __aa__ = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['__aa__']
+            ports = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['port']
+            sections = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['sections']
+            Token = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['X-Plex-Token']
+
+            url = 'http://' + ip + __aa__ + ports + '/library/sections/' + sections + '/all?X-Plex-Token=' + Token
+            response = requests.get(url)
+
+            import xml.etree.ElementTree as ET
+
+            root = ET.fromstring(response.text)
+
+            from prettytable import PrettyTable
+
+            table = PrettyTable()
+            table.field_names = ['Title', 'Summary']
+            table.max_width = 45
+
+            for video in root.findall('./Video'):
+                title = video.get('title') + '\n' + '-------------------------------------------->'
+                summary = video.get('summary') + '\n' + '---------------------------------------------'
+                table.add_row([title, summary])
+
+            window = tk.Tk()
+            window.title("Plex Media Server")
+            window.geometry("800x400")
+            window.resizable(False, False)
+
+            # create a scrollbar
+            scrollbar = tk.Scrollbar(window)
+            scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+            # create a text widget to display the table
+            text = tk.Text(window, yscrollcommand=scrollbar.set, wrap=tk.WORD, width=800, height=400)
+            text.pack(side=tk.LEFT, fill=tk.BOTH)
+            scrollbar.config(command=text.yview)
+
+            # insert the table into the text widget
+            text.insert(tk.END, str(table))
+
+
+        print(f"A plex media server program fut: pid={process2.pid}")
+        my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['MyFavUtils']['Plex_Media_server'],
+                                          command=Plex_Media_server)
+    else:
+        print("A plex media server program nem fut.")
+
+    '''if process3 is not None:
+        print(f"A microsoft edge program fut: pid={process3.pid}")
+    else:
+        print("A microsoft edge program nem fut.")'''
+
+    my_menubar.add_cascade(label=data_lang_json[lang][0]['MyFavUtils']['My_Favorite_Utilities'],
+                           menu=my_dropdown_menu_favo)
+
+    image = tk.PhotoImage(file=ROOT_DIR + "\\Script\\gui.png")
     canvas = tk.Canvas(my_windows, width=800, height=400)
     canvas.create_image(0, 0, image=image, anchor="nw")
 
@@ -202,11 +226,11 @@ if isFile:
     canvas.itemconfig(text_date, text=" ", fill="green4")
 
     text_zipball_url = canvas.create_text(400, 395, text=" ", font=("Ethnocentric", 10, 'bold'), anchor="s")
-    canvas.itemconfig(text_zipball_url, text=" ", fill="white")
+    canvas.itemconfig(text_zipball_url, text=" ", fill="green4")
     text_published_at = canvas.create_text(795, 395, text=" ", font=("Ethnocentric", 10, 'bold'), anchor="se")
-    canvas.itemconfig(text_published_at, text=" ", fill="white")
+    canvas.itemconfig(text_published_at, text=" ", fill="green2")
     text_name = canvas.create_text(5, 395, text=" ", font=("Ethnocentric", 10, 'bold'), anchor="sw")
-    canvas.itemconfig(text_name, text=" ", fill="white")
+    canvas.itemconfig(text_name, text=" ", fill="green2")
 
     canvas.pack()
 
@@ -280,13 +304,14 @@ if isFile:
     def clock():
         # Aktuális idő lekérdezése
         dd = (''.join(data_jsonq['timezone'][0]))
-        #current_time = time.strftime("%Y-%m-%d %H:%M:%S/%p")
+        # current_time = time.strftime("%Y-%m-%d %H:%M:%S/%p")
         current_time = datetime.now(pytz.timezone(dd)).strftime("%H:%M:%S")
         current_date = datetime.now(pytz.timezone(dd)).strftime("%d-%m-%Y")
 
         canvas.itemconfig(text_time, text=current_time)
         canvas.itemconfig(text_date, text=current_date)
         my_windows.after(1000, clock)
+
 
     def verzions():
         url = requests.get("https://api.github.com/repos/LexyGuru/MyApps/releases")
@@ -309,8 +334,6 @@ if isFile:
             canvas.itemconfig(text_published_at, text=published_at)
             name = datas['name']
             canvas.itemconfig(text_name, text=name)
-
-
 
         if __VERCH__ < datas['name']:
             menu_label_0 = tk.Label(my_windows, text=datas['zipball_url'], font=('Ethnocentric', 8), foreground='red')
@@ -427,7 +450,8 @@ if isFile:
         for _ in data["next_days"]:
             pass
 
-        labelframe_widget = LabelFrame(parent_widget, text=data["next_days"][0]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget = LabelFrame(parent_widget, text=data["next_days"][0]['name'],
+                                       font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget0 = Label(labelframe_widget,
                               text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][0][
                                   'weather'])
@@ -438,7 +462,8 @@ if isFile:
                               text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][0][
                                   'min_temp'])
 
-        labelframe_widget1 = LabelFrame(parent_widget, text=data["next_days"][1]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget1 = LabelFrame(parent_widget, text=data["next_days"][1]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget3 = Label(labelframe_widget1,
                               text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][1][
                                   'weather'])
@@ -449,7 +474,8 @@ if isFile:
                               text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][1][
                                   'min_temp'])
 
-        labelframe_widget2 = LabelFrame(parent_widget, text=data["next_days"][2]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget2 = LabelFrame(parent_widget, text=data["next_days"][2]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget6 = Label(labelframe_widget2,
                               text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][2][
                                   'weather'])
@@ -460,7 +486,8 @@ if isFile:
                               text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][2][
                                   'min_temp'])
 
-        labelframe_widget3 = LabelFrame(parent_widget, text=data["next_days"][3]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget3 = LabelFrame(parent_widget, text=data["next_days"][3]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget9 = Label(labelframe_widget3,
                               text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][3][
                                   'weather'])
@@ -471,7 +498,8 @@ if isFile:
                                text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][3][
                                    'min_temp'])
 
-        labelframe_widget4 = LabelFrame(parent_widget, text=data["next_days"][4]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget4 = LabelFrame(parent_widget, text=data["next_days"][4]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget12 = Label(labelframe_widget4,
                                text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][4][
                                    'weather'])
@@ -482,7 +510,8 @@ if isFile:
                                text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][4][
                                    'min_temp'])
 
-        labelframe_widget5 = LabelFrame(parent_widget, text=data["next_days"][5]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget5 = LabelFrame(parent_widget, text=data["next_days"][5]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget15 = Label(labelframe_widget5,
                                text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][5][
                                    'weather'])
@@ -493,7 +522,8 @@ if isFile:
                                text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][5][
                                    'min_temp'])
 
-        labelframe_widget6 = LabelFrame(parent_widget, text=data["next_days"][6]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget6 = LabelFrame(parent_widget, text=data["next_days"][6]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget18 = Label(labelframe_widget6,
                                text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][6][
                                    'weather'])
@@ -504,7 +534,8 @@ if isFile:
                                text=data_lang_json[lang][0]['Weather']['Min_temperature'] + " " + data["next_days"][6][
                                    'min_temp'])
 
-        labelframe_widget7 = LabelFrame(parent_widget, text=data["next_days"][7]['name'], font=('Ethnocentric', 10, 'bold'), foreground='green')
+        labelframe_widget7 = LabelFrame(parent_widget, text=data["next_days"][7]['name'],
+                                        font=('Ethnocentric', 10, 'bold'), foreground='green')
         label_widget21 = Label(labelframe_widget7,
                                text=data_lang_json[lang][0]['Weather']['Description'] + " " + data["next_days"][7][
                                    'weather'])
@@ -1594,16 +1625,10 @@ if isFile:
     my_dropdown_menu_music.add_command(label=data_lang_json[lang][0]['Music']['Music_list'], command=music.music_stream)
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Music']['Music'], menu=my_dropdown_menu_music)
 
-    my_dropdown_menu_favo = tk.Menu(my_menubar, tearoff=0)
-    my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['MyFavUtils']['Plex_Media_server'], command=Win_Scipt0)
-    my_dropdown_menu_favo.add_command(label=data_lang_json[lang][0]['MyFavUtils']['qBittorent'], command=Win_Scipt1)
-    my_menubar.add_cascade(label=data_lang_json[lang][0]['MyFavUtils']['My_Favorite_Utilities'], menu=my_dropdown_menu_favo)
-
     my_dropdown_menu_help = tk.Menu(my_menubar, tearoff=0)
     my_dropdown_menu_help.add_command(label=data_lang_json[lang][0]['Menu']['Configure'], command=configure)
     my_dropdown_menu_help.add_command(label=data_lang_json[lang][0]['Menu']['Exit'], command=exits)
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Menu']['Help'], menu=my_dropdown_menu_help)
-
 
     my_windows.config(menu=my_menubar)
 
@@ -1617,7 +1642,6 @@ else:
     language = ROOT_DIR + '/Language/' + langs + '.json'
     response = open(language, encoding='utf-8')
 
-
     data_lang_json = json.loads(response.read())
-    messagebox.showwarning(data_lang_json[langs][0]['Messages']['Messages'], "'" + lang + "'" + data_lang_json[langs][0]['Messages']['Messages_language_error'])
-
+    messagebox.showwarning(data_lang_json[langs][0]['Messages']['Messages'],
+                           "'" + lang + "'" + data_lang_json[langs][0]['Messages']['Messages_language_error'])
