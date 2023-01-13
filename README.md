@@ -12,6 +12,7 @@
 - `Windows Utils` System info, Weather etc...
 
 ---
+
 # Settings
 
 | Settings  | formating                                             |
@@ -99,6 +100,9 @@
 | xmltodict          | 	0.12.0	        |
 | xmltojson          | 	2.0.1	         |
 
+
+# Log
+- Added Autologin Windows (https://learn.microsoft.com/en-us/sysinternals/downloads/autologon)
 
 
 

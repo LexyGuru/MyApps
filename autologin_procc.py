@@ -23,3 +23,4 @@ def wait_for_process_to_end(process_names):
 
 process_names = ["Autologon.exe", "Autologon64.exe", "Autologon64a.exe"]
 wait_for_process_to_end(process_names)
+
