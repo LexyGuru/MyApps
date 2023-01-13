@@ -1,6 +1,6 @@
 # ***************************************
 # APPS VERZION
-VERSION = [1, 2, 11, 'beta', 2023]
+VERSION = [1, 2, 55, 'beta', 2023]
 # ***************************************
 
 # n, ne, e, se, s, sw, w, nw,
@@ -39,6 +39,16 @@ from tkinter.scrolledtext import ScrolledText
 from datetime import datetime
 
 # ***************************************
+def is_running(process_names):
+    running_processes = []
+    for proc in psutil.process_iter():
+        try:
+            for process_name in process_names:
+                if process_name.lower() in proc.name().lower():
+                    running_processes.append(process_name)
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    return running_processes
 
 # ***************************************
 my_windows = tk.Tk()
@@ -1041,6 +1051,7 @@ if isFile:
 
 
     class games:
+
         @staticmethod
         def game_launcher():
             ws = Tk()
@@ -1054,21 +1065,21 @@ if isFile:
                     op = lb.get(i)
                     countries.append(op)
                 for val in countries:
-                    # print(val)
+                    print(val)
 
-                    if val == "Electronics Arts":
+                    if val == "EADesktop.exe":
                         import webbrowser
                         webbrowser.open("https://www.ea.com/ea-app")
 
-                    if val == "Steam":
+                    if val == "steam.exe":
                         import webbrowser
                         webbrowser.open("https://store.steampowered.com/")
 
-                    if val == "Epic Games":
+                    if val == "EpicGamesLauncher.exe":
                         import webbrowser
                         webbrowser.open("https://www.epicgames.com/site/de/home")
 
-                    if val == "Battle.net":
+                    if val == "Battle.net.exe":
                         import webbrowser
                         webbrowser.open("https://www.blizzard.com/en-us/apps/battle.net/desktop")
 
@@ -1076,27 +1087,21 @@ if isFile:
                         import webbrowser
                         webbrowser.open("https://www.xbox.com/en-US/xbox-game-pass/pc-game-pass")
 
-                    if val == "Ubisoft":
+                    if val == "upc.exe":
                         import webbrowser
                         webbrowser.open("https://ubisoftconnect.com/")
 
-            show = Label(ws, text=data_lang_json[lang][0]['Weblink']['Select_Your_Apps'], font=("Times", 14), padx=10,
-                         pady=10)
+            show = Label(ws, text='Select Your Apps:', font=("Times", 14), padx=10, pady=10)
             show.pack()
-
             lb = Listbox(ws, selectmode="multiple")
             lb.pack(padx=10, pady=10, expand=YES, fill="both")
-
-            gamess = ["Electronics Arts",
-                      "Steam",
-                      "Epic Games",
-                      "Battle.net",
-                      "Microsoft Game Pass",
-                      "Ubisoft"]
-
-            for item in range(len(gamess)):
-                lb.insert(END, gamess[item])
-                lb.itemconfig(item, bg="#bdc1d6")
+            games = ["EADesktop.exe", "steam.exe", "EpicGamesLauncher.exe", "Battle.net.exe", "Microsoft Game Pass",
+                     "upc.exe"]
+            running_processes = is_running(games)
+            for game in games:
+                if game not in running_processes:
+                    lb.insert(END, game)
+                    lb.itemconfig(END, bg="#bdc1d6")
 
             Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
 
@@ -1714,6 +1719,11 @@ if isFile:
     if data_jsonq['hidde_show']['my_dropdown_menu_utils'] == "Hidden":
         my_menubar.entryconfig(data_lang_json[lang][0]['Menu']['utilities'], state="disabled")
         my_menubar.delete(data_lang_json[lang][0]['Menu']['utilities'])
+
+    # --------------------------------------------------
+
+
+    # --------------------------------------------------
 
     # *********************************************************************************
 
