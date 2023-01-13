@@ -22,7 +22,13 @@
     "X-Plex-Token": "MkPxY7Ex96tYsDLjHvZN"
     },
 
-
+  "__COMMENT_MENU_SHOW_HIDDE__": "Show , Hidden",
+  "hidde_show": {
+    "my_dropdown_menu_music": "Show",
+    "my_dropdown_menu_games": "Show",
+    "my_dropdown_menu_apps": "Show",
+    "my_dropdown_menu_utils": "Show"
+  },
 
   "__COMMENT__": "---> NOT EDIT <---",
   "config_error_language": ["eng"]

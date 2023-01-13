@@ -22,7 +22,8 @@
         "Help": "Help",
 
         "utilities": "Utilities",
-        "Weather": "Weather"
+        "Weather": "Weather",
+        "Autologin": "Autologion"
       },
 
       "Weather": {

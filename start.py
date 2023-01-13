@@ -26,7 +26,10 @@ import subprocess as sp
 import json
 import requests
 import qbittorrentapi
+import subprocess
+import zipfile
 
+from tqdm import tqdm
 from tabulate import tabulate
 from bs4 import BeautifulSoup as bs
 from tkinter import *
@@ -119,10 +122,10 @@ if isFile:
             table1.max_width = 200
 
             for torrent in qbt_client.torrents_info():
-                hash = f'{torrent.hash[-6:]}'
+                hashh = f'{torrent.hash[-6:]}'
                 name = f'{torrent.name}'
                 state = f'{torrent.state}'
-                table1.add_row([hash, name, state])
+                table1.add_row([hashh, name, state])
 
             window = tk.Tk()
             window.title("qBittorrent API Info")
@@ -167,11 +170,11 @@ if isFile:
             Token = data_jsonq['__COMMENT_PLEX_SERVER_WEBAPI__']['X-Plex-Token']
 
             url = 'http://' + ip + __aa__ + ports + '/library/sections/' + sections + '/all?X-Plex-Token=' + Token
-            response = requests.get(url)
+            responsee = requests.get(url)
 
             import xml.etree.ElementTree as ET
 
-            root = ET.fromstring(response.text)
+            root = ET.fromstring(responsee.text)
 
             from prettytable import PrettyTable
 
@@ -244,8 +247,8 @@ if isFile:
             parent_widget.minsize(400, 150)
             parent_widget.geometry('400x150')
 
-            path = 'C:\\Users\\leksz\\AppData\\Local\\Temp\\MpCmdRun.log'
-            isFile = os.path.isfile(path)
+            pathh = 'C:\\Users\\leksz\\AppData\\Local\\Temp\\MpCmdRun.log'
+            isFiles = os.path.isfile(pathh)
 
             def quick_scean():
                 os.system(
@@ -262,9 +265,9 @@ if isFile:
                     'start MpCmdRun -Scan -ScanType 2 && exit"')
 
             def open_log():
-                if isFile:
+                if isFiles:
                     programName = "notepad.exe"
-                    fileName = path
+                    fileName = pathh
                     sp.Popen([programName, fileName])
                 else:
                     messagebox.showinfo(data_lang_json[lang][0]['Messages']['Messages'],
@@ -272,8 +275,8 @@ if isFile:
 
             def reset_log():
 
-                if isFile:
-                    os.remove(path)
+                if isFiles:
+                    os.remove(pathh)
                 else:
                     pass
 
@@ -620,7 +623,7 @@ if isFile:
         # ***********************************************************************
         # SYSTEM PLATFORM
         # ***********************************************************************
-        def get_size(bytes, suffix="B"):
+        def get_size(bytess, suffix="B"):
             """
             Scale bytes to its proper format
             e.g:
@@ -629,9 +632,9 @@ if isFile:
             """
             factor = 1024
             for unit in ["", "K", "M", "G", "T", "P"]:
-                if bytes < factor:
-                    return f"{bytes:.2f}{unit}{suffix}"
-                bytes /= factor
+                if bytess < factor:
+                    return f"{bytess:.2f}{unit}{suffix}"
+                bytess /= factor
 
         print("=" * 40, "System Information", "=" * 40)
         uname = platform.uname()
@@ -755,7 +758,8 @@ if isFile:
 
 
     def exits():
-        exit()
+        # exit()
+        my_windows.destroy()
 
 
     class apps:
@@ -1043,8 +1047,6 @@ if isFile:
             ws.title('Game Apps')
             ws.geometry('400x300')
 
-            var = StringVar()
-
             def showSelected():
                 countries = []
                 cname = lb.curselection()
@@ -1085,15 +1087,15 @@ if isFile:
             lb = Listbox(ws, selectmode="multiple")
             lb.pack(padx=10, pady=10, expand=YES, fill="both")
 
-            games = ["Electronics Arts",
-                     "Steam",
-                     "Epic Games",
-                     "Battle.net",
-                     "Microsoft Game Pass",
-                     "Ubisoft"]
+            gamess = ["Electronics Arts",
+                      "Steam",
+                      "Epic Games",
+                      "Battle.net",
+                      "Microsoft Game Pass",
+                      "Ubisoft"]
 
-            for item in range(len(games)):
-                lb.insert(END, games[item])
+            for item in range(len(gamess)):
+                lb.insert(END, gamess[item])
                 lb.itemconfig(item, bg="#bdc1d6")
 
             Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
@@ -1106,10 +1108,8 @@ if isFile:
             ws.title('Music streaming apps')
             ws.geometry('400x300')
 
-            var = StringVar()
-
             def showSelected():
-                global response
+                global response, ROOT_DIR
                 countries = []
                 cname = lb.curselection()
                 for i in cname:
@@ -1123,9 +1123,8 @@ if isFile:
                         parent_widget.minsize(400, 150)
                         parent_widget.geometry('400x150')
 
-                        ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget, text=data_lang_json[lang][0]['Music']['Bandcamp'])
@@ -1163,8 +1162,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1208,8 +1207,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1253,8 +1252,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1303,8 +1302,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1348,8 +1347,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1394,8 +1393,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1439,8 +1438,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1484,8 +1483,8 @@ if isFile:
                         parent_widget.geometry('400x150')
 
                         ROOT_DIR = os.path.abspath(os.curdir)
-                        path = ROOT_DIR + '/Language/music_stream.json'
-                        response = open(path, encoding='utf-8')
+                        patha = ROOT_DIR + '/Language/music_stream.json'
+                        response = open(patha, encoding='utf-8')
                         path_jsonq = json.loads(response.read())
 
                         labelframe_widget = LabelFrame(parent_widget,
@@ -1595,6 +1594,61 @@ if isFile:
             Button(ws, text=data_lang_json[lang][0]['Weblink']['Show_Selected'], command=showSelected).pack()
 
 
+    def autologin():
+        url = "https://download.sysinternals.com/files/AutoLogon.zip"
+        filename = "AutoLogon.zip"
+        response = requests.get(url, stream=True)
+
+        total_size = int(response.headers.get("Content-Length", 0))
+        block_size = 1024
+
+        with open(filename, "wb") as f:
+            for data in tqdm(response.iter_content(block_size), total=total_size // block_size, unit="KB",
+                             unit_scale=True, desc=filename):
+                f.write(data)
+
+        ROOT_DIR = os.path.abspath(os.curdir)
+        with zipfile.ZipFile('AutoLogon.zip', 'r') as myzip:
+            myzip.extractall(path=ROOT_DIR + '\Temp\Autologin')
+
+        os.startfile(ROOT_DIR + "\Temp\Autologin")
+
+        ###########################################
+
+        import tkinter.messagebox as messagebox
+
+        while True:
+            result = messagebox.showwarning("Figyelem",
+                                            "Inditsad el a megfelelö fäjlt a fojtatäshoz, addig ne nyomj ok gombot")
+            if result == "ok":
+                def is_running(process_names):
+
+                    running_processes = []
+                    for proc in psutil.process_iter():
+                        try:
+                            for process_name in process_names:
+                                if process_name.lower() in proc.name().lower():
+                                    running_processes.append(process_name)
+                        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                            pass
+                    return running_processes
+
+                processes_to_check = ["Autologon.exe", "Autologon64.exe", "Autologon64a.exe"]
+                running_processes = is_running(processes_to_check)
+
+                if running_processes:
+                    print("The following processes are running: ", running_processes)
+                    result = subprocess.run(
+                        ["powershell", "Start-Process", "-Verb", "runAs", "-FilePath", "python", "-ArgumentList",
+                         "autologin_procc.py"],
+                        stdout=subprocess.PIPE)
+                    break
+                else:
+                    print("None of the processes are running")
+
+        ###########################################
+
+
     # **************************************************************************************************
     # TOP GUI
 
@@ -1604,6 +1658,7 @@ if isFile:
     my_dropdown_menu_utils = tk.Menu(my_menubar, tearoff=0)
     my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['virus_scann'],
                                        command=microsoft_apps.virus_scann)
+    my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['Autologin'], command=autologin)
     my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['SystemInfo'], command=systeminfo)
     my_dropdown_menu_utils.add_command(label=data_lang_json[lang][0]['Menu']['Weather'], command=weather_google)
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Menu']['utilities'], menu=my_dropdown_menu_utils)
@@ -1631,6 +1686,36 @@ if isFile:
     my_menubar.add_cascade(label=data_lang_json[lang][0]['Menu']['Help'], menu=my_dropdown_menu_help)
 
     my_windows.config(menu=my_menubar)
+
+    # *********************************************************************************
+    # Hidden - Show MENU
+    # *********************************************************************************
+
+    if data_jsonq['hidde_show']['my_dropdown_menu_music'] == "Show":
+        pass
+    if data_jsonq['hidde_show']['my_dropdown_menu_music'] == "Hidden":
+        my_menubar.entryconfig(data_lang_json[lang][0]['Music']['Music'], state="disabled")
+        my_menubar.delete(data_lang_json[lang][0]['Music']['Music'])
+
+    if data_jsonq['hidde_show']['my_dropdown_menu_games'] == "Show":
+        pass
+    if data_jsonq['hidde_show']['my_dropdown_menu_games'] == "Hidden":
+        my_menubar.entryconfig(data_lang_json[lang][0]['Games']['Games'], state="disabled")
+        my_menubar.delete(data_lang_json[lang][0]['Games']['Games'])
+
+    if data_jsonq['hidde_show']['my_dropdown_menu_apps'] == "Show":
+        pass
+    if data_jsonq['hidde_show']['my_dropdown_menu_apps'] == "Hidden":
+        my_menubar.entryconfig(data_lang_json[lang][0]['Apps']['Apps'], state="disabled")
+        my_menubar.delete(data_lang_json[lang][0]['Apps']['Apps'])
+
+    if data_jsonq['hidde_show']['my_dropdown_menu_utils'] == "Show":
+        pass
+    if data_jsonq['hidde_show']['my_dropdown_menu_utils'] == "Hidden":
+        my_menubar.entryconfig(data_lang_json[lang][0]['Menu']['utilities'], state="disabled")
+        my_menubar.delete(data_lang_json[lang][0]['Menu']['utilities'])
+
+    # *********************************************************************************
 
     my_windows.mainloop()
 
